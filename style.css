@@ -1,0 +1,152 @@
+*{
+  margin:0;
+  border:0;
+  padding:0;
+  font-size:inherit;
+  font-family:inherit;
+  font-weight:inherit;
+  font-style:inherit;
+  border-collapse:collapse;
+  text-decoration:inherit;
+  color:inherit;
+  list-style:none;
+  background-color:transparent;
+}
+*:focus{
+  outline:none;
+}
+
+html{
+  font-size:14px;
+  font-family:"Helvetica Neue", Helvetica, sans-serif;
+  background-color:#eee;
+}
+body{
+  color:#444;
+}
+input[type=radio],
+input[type=checkbox]{
+  display:none;
+}
+
+nav input,
+nav label,
+nav button,
+nav li,
+.tags li{
+  font-size:14px;
+  line-height:28px;
+  text-transform:uppercase;
+  font-weight:bold;
+  font-size:10px;
+  letter-spacing:1px;
+  text-align:center;
+}
+
+nav{
+  background-color:#fff;
+  font-size:0;
+}
+nav input,
+nav button,
+nav li{
+  display:block;
+  width:100%;
+}
+nav label,
+nav button,
+nav li{
+  cursor:pointer;
+}
+nav li{
+  border-bottom:1px solid #eee;
+}
+nav li:not(:first-child){
+  text-align:left;
+}
+nav li,
+nav input{
+  box-sizing:border-box;
+  padding:0 5px;
+}
+nav label,
+nav button{
+  background-color:#9cf;
+  color:#369;
+}
+nav input:checked+label{
+  background-color:#69c;
+  color:#bdf;
+}
+nav span{
+  float:right;
+}
+
+main{
+  color:#999;
+}
+main h2{
+  font-weight:bold;
+  color:#369;
+}
+main header>*{
+  display:inline-block;
+  vertical-align:baseline;
+  padding-right:20px;
+}
+main .homepage{
+  text-decoration:underline;
+}
+main header span{
+  float:right;
+  width:30px;
+  text-align:center;
+}
+main header,
+main p,
+.tags li{
+  line-height:28px;
+}
+.tags li{
+  display:inline-block;
+  padding-right:20px;
+  cursor:pointer;
+}
+.tags li:hover{
+  color:#69c;
+}
+.repo{
+  border-bottom:1px dashed #ccc;
+  padding:14px 0;
+}
+.options h2,
+.options span{
+  color:#369;
+  cursor:pointer;
+  font-weight:bold;
+}
+.options h2:hover,
+.options span:hover{
+  text-decoration:underline;
+}
+
+body{
+  min-width:420px;
+}
+nav{
+  position:absolute;
+  top:0;
+  left:0;
+  width:150px;
+  min-height:100vh;
+}
+nav label{
+  display:inline-block;
+  width:33.3%;
+}
+main{
+  width:100%;
+  box-sizing:border-box;
+  border-left:150px solid #fff;
+  padding:0 20px;
+}

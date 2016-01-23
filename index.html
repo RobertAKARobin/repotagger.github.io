@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Tagrid: A tagging system for Github repos</title>
+    <link rel="stylesheet" href="style.css" />
+    <script src="js/angular.min.js"></script>
+    <script src="js/app.js"></script>
+  </head>
+  <body data-ng-app="tagrid" data-ng-controller="mainController as vm">
+
+    <nav>
+      <input type="text" placeholder="github name" data-ng-model="vm.name" />
+      <button type="button" data-ng-click="vm.startAPIQuery()">{{vm.status}}</button>
+      <fieldset>
+        <input type="radio" data-ng-model="vm.tagSort" value="name" id="sortByName" />
+        <label for="sortByName">Name</label>
+        <input type="radio" data-ng-model="vm.tagSort" value="count" id="sortByCount" />
+        <label for="sortByCount">Count</label>
+        <input type="checkbox" data-ng-model="vm.tagSortReverse" id="sortReverse" />
+        <label for="sortReverse">Z-A</label>
+      </fieldset>
+      <ul>
+        <li data-ng-click="vm.filterOn(null)">clear</li>
+        <li data-ng-repeat="tag in vm.tags | orderBy:vm.tagSort:vm.tagSortReverse" data-ng-click="vm.filterOn(tag.name)">
+          {{tag.name}} <span>{{tag.count}}</span>
+        </li>
+      </ul>
+    </nav>
+
+    <main>
+      <ul>
+        <li class="repo options">
+          <header>
+            <h2 data-ng-click="vm.repoSortBy('name')">Name</h2>
+            <span data-ng-click="vm.repoSortBy('stargazers_count')" title="Stars">&bigstar;</span>
+          </header>
+        </li>
+        <li class="repo" data-ng-repeat="repo in vm.repos | filter:vm.filterer | orderBy:vm.repoSort:vm.repoSortReverse">
+          <header>
+            <h2><a href="{{repo.html_url}}" target="_blank">{{repo.name}}</a></h2>
+            <a class="homepage" href="{{repo.homepage}}" target="_blank">{{repo.homepage}}</a>
+            <span title="Stargazers">{{repo.stargazers_count}}</span>
+          </header>
+          <p class="description">{{repo.description_sans_tags}}</p>
+          <ul class="tags">
+            <li data-ng-repeat="tag in repo.tags" data-ng-click="vm.filterOn(tag)">
+              {{tag}}
+            </li>
+          </ul>
+        </li>
+      </ul>
+    </main>
+
+  </body>
+</html>
