@@ -28,6 +28,7 @@ var h = (function helpers(){
     vm.name = $location.search().name;
     vm.repos = [];
     vm.tags = [];
+    vm.untagged = 0;
     vm.startAPIQuery = startAPIQuery;
 
     vm.tagSort = "name";
@@ -38,8 +39,10 @@ var h = (function helpers(){
     };
     vm.filterer = function(repo){
       var filter = $location.$$search.tag;
-      if(!filter || !tagsKeyValue[filter]) return true;
-      else return (repo.tags && repo.tags.indexOf(filter) > -1);
+      if(repo.tags && repo.tags.includes(filter)) return true;
+      else if(filter === "untagged" && (!repo.tags || repo.tags.length < 1)) return true;
+      else if(!filter || filter === "all") return true;
+      else return false;
     }
 
     vm.repoSort = "name";
@@ -114,17 +117,17 @@ var h = (function helpers(){
     }
 
     function parseTags(repo){
-      var tagMatcher = /\[[^\]]*\]/;
-      if(repo.description && (repo.tags = repo.description.match(tagMatcher))){
-        repo.tags = repo.tags[0].toLowerCase().replace(/[\[\]]/g, "");
+      var tagMatcher = /\[[^\]]+\]/;
+      repo.description_sans_tags = repo.description.replace(tagMatcher, "").trim();
+      if(repo.description && (tagMatcher.test(repo.description))){
+        repo.tags = repo.description.match(tagMatcher)[0].toLowerCase().replace(/[\[\]]/g, "");
         repo.tags = (repo.tags.trim() === "") ? [] : repo.tags.split(/, */);
         repo.tags.sort();
-        repo.description_sans_tags = repo.description.replace(tagMatcher, "").trim();
         h.forEach(repo.tags, function(tag){
           if(!tagsKeyValue[tag]) tagsKeyValue[tag] = 0;
           tagsKeyValue[tag] += 1;
         });
-      }
+      }else vm.untagged += 1;
     }
 
   }
