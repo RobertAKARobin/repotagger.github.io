@@ -60,8 +60,6 @@ nav li{
 }
 nav li{
   border-bottom:1px solid #eee;
-}
-nav li:not(:first-child){
   text-align:left;
 }
 nav li,

@@ -20,7 +20,7 @@
         <label for="sortReverse">Z-A</label>
       </fieldset>
       <ul>
-        <li data-ng-click="vm.filterOn(null)">clear</li>
+        <li data-ng-click="vm.filterOn(null)">All <span>{{vm.repos.length}}</span></li>
         <li data-ng-repeat="tag in vm.tags | orderBy:vm.tagSort:vm.tagSortReverse" data-ng-click="vm.filterOn(tag.name)">
           {{tag.name}} <span>{{tag.count}}</span>
         </li>
