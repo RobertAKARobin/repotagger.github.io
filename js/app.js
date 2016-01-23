@@ -14,7 +14,7 @@ var h = (function helpers(){
 
 (function(){
   angular
-  .module("tagrid", [])
+  .module("repotagger", [])
   .controller("mainController", [
     "$http",
     "$location",
