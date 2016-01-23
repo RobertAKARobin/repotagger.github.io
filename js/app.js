@@ -49,6 +49,10 @@ var h = (function helpers(){
       vm.repoSort = byWhat;
     }
 
+    window.onload = function(){
+      if(vm.name) startAPIQuery();
+    }
+
     function startAPIQuery(){
       vm.repos = [];
       vm.tags = [];
