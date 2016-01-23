@@ -56,6 +56,7 @@ var h = (function helpers(){
     function startAPIQuery(){
       vm.repos = [];
       vm.tags = [];
+      tagsKeyValue = {};
       vm.status = "Loading...";
       $location.search("name", vm.name);
       $location.search("type", vm.type);
