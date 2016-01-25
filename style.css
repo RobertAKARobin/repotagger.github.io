@@ -122,6 +122,10 @@ main p,
 .tags li:hover{
   color:#69c;
 }
+ol .repo{
+  list-style-type:decimal;
+  list-style-position:inside;
+}
 .repo{
   border-bottom:1px dashed #ccc;
   padding:14px 0;

@@ -47,6 +47,8 @@
             <span data-ng-click="vm.repoSortBy('stargazers_count')" title="Stars">&bigstar;</span>
           </header>
         </li>
+      </ul>
+      <ol>
         <li class="repo" data-ng-repeat="repo in vm.repos | filter:vm.filterer | orderBy:vm.repoSort:vm.repoSortReverse">
           <header>
             <h2><a data-ng-href="{{repo.html_url}}" target="_blank">{{repo.name}}</a></h2>
@@ -60,7 +62,7 @@
             </li>
           </ul>
         </li>
-      </ul>
+      </ol>
     </main>
 
   </body>
