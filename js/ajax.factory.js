@@ -29,6 +29,7 @@
       var response = http.response;
       var headers = parseHeaders(http);
       var ETag = (headers.ETag || headers.Etag || headers.etag).replace(/[^a-z0-9]/g, "");
+      var rateLimit = headers["X-RateLimit-Remaining"];
       if(localStorage){
         if(http.status === 304){
           console.log("Retrieving from cache...");
@@ -38,6 +39,7 @@
           localStorage.setItem(http.responseURL, ETag);
           localStorage.setItem(ETag, response);
           localStorage.setItem(ETag + "-header", JSON.stringify(headers));
+          if(rateLimit) console.log("Rate limit: " + rateLimit);
         }
       }
       callback(JSON.parse(response), headers, http);

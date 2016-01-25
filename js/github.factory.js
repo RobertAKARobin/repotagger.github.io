@@ -34,7 +34,6 @@
     }
 
     function checkForErrors(response, headers, httpObject){
-      console.log("Rate limit: " + headers["X-RateLimit-Remaining"])
       if([200, 304].indexOf(httpObject.status) < 0){
         request.whenComplete({error: httpObject.status, body: response});
       }else{
