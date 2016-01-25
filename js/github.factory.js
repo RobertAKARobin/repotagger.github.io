@@ -19,44 +19,49 @@
     var tagsWithCounts = {};
     var data = {};
 
-    (function initialize(){
+    (function loadRepos(){
       data.repos = [];
       data.tags = [];
       data.untagged = 0;
       request.whenComplete = whenComplete;
-      AJAX("GET", "https://api.github.com/users/" + name + "/repos", {
+      queryAPI("https://api.github.com/users/" + name + "/repos", {
         params: { per_page: 100, access_token: access_token }
-      }, verifyAPIResponse);
+      });
     }());
 
-    function verifyAPIResponse(response, headers, httpObject){
-      var links = parseLinks(headers.Link);
+    function queryAPI(url, options){
+      AJAX("GET", url, options, checkForErrors);
+    }
+
+    function checkForErrors(response, headers, httpObject){
       console.log("Rate limit: " + headers["X-RateLimit-Remaining"])
       if([200, 304].indexOf(httpObject.status) < 0){
         request.whenComplete({error: httpObject.status, body: response});
       }else{
         data.repos = data.repos.concat(response);
-        if(links.next) AJAX("GET", links.next, {}, verifyAPIResponse);
-        else collectAllData();
+        checkIfMorePages(headers);
       }
     }
 
-    function collectAllData(){
-      data.repos.forEach(parseTags);
-      data.tags = countTags();
-      request.whenComplete(data);
+    function checkIfMorePages(headers){
+      var links = {};
+      if(headers.Link){
+        headers.Link.split(",").forEach(function(line){
+          var pair = line.split(";");
+          var rel = pair[1].replace(/rel="(.*)"/, "$1").trim();
+          links[rel] = pair[0].replace(/<(.*)>/, "$1").trim();
+        });
+      }
+      if(links.next) queryAPI(links.next, {});
+      else parseData();
     }
 
-    function parseLinks(linkString){
-      var links = {};
-      if(!linkString) return true;
-      linkString.split(",").forEach(function(line){
-        var pair = line.split(";");
-        var rel = pair[1].replace(/rel="(.*)"/, "$1").trim();
-        var url = pair[0].replace(/<(.*)>/, "$1").trim();
-        links[rel] = url;
+    function parseData(){
+      data.repos.forEach(parseTags);
+      Object.keys(tagsWithCounts).forEach(function(tag){
+        data.tags.push({name: tag, count: tagsWithCounts[tag]});
       });
-      return links;
+      request.whenComplete(data);
     }
 
     function parseTags(repo){
@@ -69,14 +74,6 @@
           tagsWithCounts[tag] = (tagsWithCounts[tag] || 0) + 1;
         });
       }else data.untagged += 1;
-    }
-
-    function countTags(){
-      var out = [];
-      Object.keys(tagsWithCounts).forEach(function(tag){
-        out.push({name: tag, count: tagsWithCounts[tag]});
-      });
-      return out;
     }
   }
 }());
