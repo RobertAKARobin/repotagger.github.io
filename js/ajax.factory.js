@@ -51,7 +51,9 @@
           }
         }
       }
-      if(rateLimit) console.log("Rate limit remaining: " + rateLimit);
+      if(rateLimit && request.http.status === 200){
+        console.log("Rate limit remaining: " + rateLimit);
+      }
       callback(JSON.parse(response), headers, request.http);
     }
 

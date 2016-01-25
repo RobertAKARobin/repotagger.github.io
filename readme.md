@@ -16,6 +16,6 @@ For example:
 
 ## TODO
 
-- Enable API caching to mitigate bumping against the rate limit
+- ~~Enable API caching to mitigate bumping against the rate limit~~ (Done!)
 - Sort by multiple tags
 - Figure out why the Github API always returns the same values for `watchers_count` and `stargazers_count`

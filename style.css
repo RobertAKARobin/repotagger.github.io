@@ -32,6 +32,7 @@ input[type=checkbox]{
 nav input,
 nav label,
 nav button,
+nav .button,
 nav li,
 .tags li{
   font-size:14px;
@@ -50,12 +51,14 @@ nav{
 }
 nav input,
 nav button,
+nav .button,
 nav li{
   display:block;
   width:100%;
 }
 nav label,
 nav button,
+nav .button,
 nav li{
   cursor:pointer;
 }
@@ -68,8 +71,13 @@ nav input{
   box-sizing:border-box;
   padding:0 5px;
 }
+nav input[type=text]:focus,
+nav li:hover{
+  background-color:#eef;
+}
 nav label,
-nav button{
+nav button,
+nav .button{
   background-color:#9cf;
   color:#369;
 }

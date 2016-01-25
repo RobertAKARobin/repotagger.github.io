@@ -13,6 +13,7 @@
   <body data-ng-app="repotagger" data-ng-controller="MainController as vm">
 
     <nav>
+      <a class="button" target="_blank" href="https://github.com/repotagger/repotagger.github.io#repotagger">About RepoTagger</a>
       <input type="text" placeholder="github name" data-ng-model="vm.name" />
       <button data-ng-click="vm.startAPIQuery()" data-ng-switch="vm.status">
         <span data-ng-switch-when="0">Load repos</span>
@@ -48,8 +49,8 @@
         </li>
         <li class="repo" data-ng-repeat="repo in vm.repos | filter:vm.filterer | orderBy:vm.repoSort:vm.repoSortReverse">
           <header>
-            <h2><a href="{{repo.html_url}}" target="_blank">{{repo.name}}</a></h2>
-            <a class="homepage" href="{{repo.homepage}}" target="_blank">{{repo.homepage}}</a>
+            <h2><a data-ng-href="{{repo.html_url}}" target="_blank">{{repo.name}}</a></h2>
+            <a class="homepage" data-ng-href="{{repo.homepage}}" target="_blank">{{repo.homepage}}</a>
             <span title="Stargazers">{{repo.stargazers_count}}</span>
           </header>
           <p class="description">{{repo.description_sans_tags}}</p>
