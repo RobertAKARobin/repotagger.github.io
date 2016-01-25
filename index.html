@@ -4,25 +4,33 @@
     <title>RepoTagger: A tagging system for Github repos</title>
     <link rel="stylesheet" href="style.css" />
     <script src="js/angular.min.js"></script>
-    <script src="js/app.js"></script>
+    <script src="js/main.controller.js"></script>
+    <script src="js/ajax.factory.js"></script>
+    <script src="js/github.factory.js"></script>
   </head>
-  <body data-ng-app="repotagger" data-ng-controller="mainController as vm">
+  <body data-ng-app="repotagger" data-ng-controller="MainController as vm">
 
     <nav>
       <input type="text" placeholder="github name" data-ng-model="vm.name" />
-      <button type="button" data-ng-click="vm.startAPIQuery()">{{vm.status}}</button>
+      <button data-ng-click="vm.startAPIQuery()" data-ng-switch="vm.status">
+        <span data-ng-switch-when="0">Load repos</span>
+        <span data-ng-switch-when="100">Loading...</span>
+        <span data-ng-switch-when="200">Reload repos</span>
+        <span data-ng-switch-when="403">Try again later.</span>
+        <span data-ng-switch-when="404">Not found! :(</span>
+      </button>
       <fieldset>
         <input type="radio" data-ng-model="vm.tagSort" value="name" id="sortByName" />
         <label for="sortByName">Name</label>
         <input type="radio" data-ng-model="vm.tagSort" value="count" id="sortByCount" />
         <label for="sortByCount">Count</label>
-        <input type="checkbox" data-ng-model="vm.tagSortReverse" id="sortReverse" />
-        <label for="sortReverse">Z-A</label>
+        <input type="checkbox" data-ng-model="vm.tagSortAscend" id="sortAscend" />
+        <label for="sortAscend">A-Z</label>
       </fieldset>
       <ul>
         <li data-ng-click="vm.filterOn('all')">All <span>{{vm.repos.length}}</span></li>
         <li data-ng-click="vm.filterOn('untagged')">Untagged <span>{{vm.untagged}}</span></li>
-        <li data-ng-repeat="tag in vm.tags | orderBy:vm.tagSort:vm.tagSortReverse" data-ng-click="vm.filterOn(tag.name)">
+        <li data-ng-repeat="tag in vm.tags | orderBy:vm.tagSort:!vm.tagSortAscend" data-ng-click="vm.filterOn(tag.name)">
           {{tag.name}} <span>{{tag.count}}</span>
         </li>
       </ul>
