@@ -2,12 +2,12 @@
 
 (function(){
   angular
-  .module("repotagger", [ "Github" ])
+  .module("repotagger", [ "GH_API" ])
   .controller("MainController", MainController);
 
-  MainController.$inject = [ "Github", "$location", "$scope" ];
+  MainController.$inject = [ "GH_API", "$location", "$scope" ];
 
-  function MainController(Github, $location, $scope){
+  function MainController(GH_API, $location, $scope){
     var vm = this;
     var ghQuery = {};
     vm.status = 0;
@@ -43,16 +43,32 @@
       vm.tags = [];
       vm.untagged = 0;
       $location.search("name", vm.name.toLowerCase());
-      new Github(vm.name, "03b86161b45561bc7448eebac1c2a4491ebbf941", function(data){
-        if(data.error) vm.status = data.error;
-        else{
-          vm.status = 200;
-          vm.repos = data.repos;
-          vm.tags = data.tags;
-          vm.untagged = data.untagged;
-        }
-        $scope.$apply();
+      GH_API("users/" + vm.name + "/repos", completedAPIQuery, {
+        params: { access_token: "03b86161b45561bc7448eebac1c2a4491ebbf941" }
       });
+    }
+
+    function completedAPIQuery(repos){
+      var tagsWithCounts = {};
+      var tagMatcher = /\[[^\]]+\]/;
+      if(repos.error) vm.status = repos.error;
+      else{
+        (vm.repos = repos).forEach(function(repo){
+          repo.description_sans_tags = (repo.description || "").replace(tagMatcher, "").trim();
+          if(repo.description && (tagMatcher.test(repo.description))){
+            repo.tags = repo.description.match(tagMatcher)[0].toLowerCase().replace(/[\[\]]/g, "");
+            repo.tags = (repo.tags.trim() === "") ? [] : repo.tags.split(/, */);
+            repo.tags.forEach(function(tag){
+              tagsWithCounts[tag] = (tagsWithCounts[tag] || 0) + 1;
+            });
+          }else vm.untagged += 1;
+        });
+        Object.keys(tagsWithCounts).forEach(function(tag){
+          vm.tags.push({name: tag, count: tagsWithCounts[tag]});
+        });
+        vm.status = 200;
+      }
+      $scope.$apply();
     }
 
   }
