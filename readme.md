@@ -4,6 +4,8 @@ I got tired of digging through all my repos to see which were Ruby, which were J
 
 Go to http://repotagger.github.io, enter the name of a Github organization or user, click "Load Repos", and away you go. Bookmark the resulting link for easy access, or fork this and add it to your own organization/account.
 
+This uses the Github API. They have *rate limiting* in place -- you can only use their API so much with one Github account before they start rejecting you -- so RepoTagger asks each user to log into their own Github account first.
+
 ## To tag repos
 
 Edit the "Description" of the repo on Github, and include your tags `[in,this,format]`.
