@@ -32,7 +32,7 @@ input[type=checkbox]{
 nav input,
 nav label,
 nav button,
-nav .button,
+.button,
 nav li,
 .tags li{
   font-size:14px;
@@ -51,16 +51,24 @@ nav{
 }
 nav input,
 nav button,
-nav .button,
+.button,
 nav li{
   display:block;
   width:100%;
 }
 nav label,
 nav button,
-nav .button,
+.button,
 nav li{
   cursor:pointer;
+}
+nav label:hover,
+nav button:hover,
+.button:hover{
+  background-color:#8be;
+}
+nav .button.important{
+  color:#fff;
 }
 nav li{
   border-bottom:1px solid #eee;
