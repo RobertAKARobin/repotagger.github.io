@@ -2,16 +2,10 @@
 
 (function(){
   angular
-  .module("repotagger", [
-    "Github"
-  ])
+  .module("repotagger", [ "Github" ])
   .controller("MainController", MainController);
 
-  MainController.$inject = [
-    "Github",
-    "$location",
-    "$scope"
-  ];
+  MainController.$inject = [ "Github", "$location", "$scope" ];
 
   function MainController(Github, $location, $scope){
     var vm = this;
@@ -48,8 +42,7 @@
       vm.repos = [];
       vm.tags = [];
       vm.untagged = 0;
-      $location.search("name", vm.name);
-      $location.search("type", vm.type);
+      $location.search("name", vm.name.toLowerCase());
       new Github(vm.name, "03b86161b45561bc7448eebac1c2a4491ebbf941", function(data){
         if(data.error) vm.status = data.error;
         else{
