@@ -41,6 +41,7 @@ nav li,
   font-size:10px;
   letter-spacing:1px;
   text-align:center;
+  direction:ltr;
 }
 
 nav{
@@ -132,11 +133,13 @@ body{
   min-width:420px;
 }
 nav{
-  position:absolute;
+  position:fixed;
   top:0;
   left:0;
-  width:150px;
-  min-height:100vh;
+  width:180px;
+  height:100vh;
+  overflow-y:scroll;
+  direction:rtl;
 }
 nav label{
   display:inline-block;
@@ -145,6 +148,6 @@ nav label{
 main{
   width:100%;
   box-sizing:border-box;
-  border-left:150px solid #fff;
+  border-left:180px solid #fff;
   padding:0 20px;
 }
