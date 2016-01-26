@@ -3,7 +3,12 @@
 (function(){
   angular
   .module("repotagger", [ "GH_API", "ngCookies" ])
+  .config(AppConfig)
   .controller("MainController", MainController);
+
+  function AppConfig($locationProvider){
+    $locationProvider.html5Mode(true);
+  }
 
   MainController.$inject = [ "GH_API", "$cookies", "$location", "$scope" ];
 
