@@ -44,17 +44,24 @@
       <ul>
         <li class="repo options">
           <header>
+            <p class="stats">
+              <span class="digit" data-ng-click="vm.repoSortBy('stargazers_count')" title="Stars">&bigstar;</span>
+            </p>
             <h2 data-ng-click="vm.repoSortBy('name')">Name</h2>
-            <span data-ng-click="vm.repoSortBy('stargazers_count')" title="Stars">&bigstar;</span>
           </header>
         </li>
       </ul>
       <ol>
         <li class="repo" data-ng-repeat="repo in vm.repos | filter:vm.filterer | orderBy:vm.repoSort:vm.repoSortReverse">
           <header>
-            <h2><a data-ng-href="{{repo.html_url}}" target="_blank">{{repo.name}}</a></h2>
-            <a class="homepage" data-ng-href="{{repo.homepage}}" target="_blank">{{repo.homepage}}</a>
-            <span title="Stargazers">{{repo.stargazers_count}}</span>
+            <p class="stats">
+              <span>{{repo.language}}</span>
+              <span class="digit">{{repo.stargazers_count}}</span>
+            </p>
+            <h2>
+              <a class="name" data-ng-href="{{repo.html_url}}" target="_blank">{{repo.name}}</a>
+              <a class="homepage" data-ng-href="{{repo.homepage}}" target="_blank">{{repo.homepage}}</a>
+            </h2>
           </header>
           <p class="description">{{repo.description_sans_tags}}</p>
           <ul class="tags">

@@ -100,27 +100,30 @@ nav li span{
 main{
   color:#999;
 }
-main h2{
+main header{
+  line-height:28px;
+}
+main header a,
+main header span{
+  margin-right:20px;
+}
+main h2 .name{
   font-weight:bold;
   color:#369;
-}
-main header>*{
-  display:inline-block;
-  vertical-align:baseline;
-  padding-right:20px;
 }
 main .homepage{
   text-decoration:underline;
 }
-main header span{
+main .stats{
   float:right;
-  width:30px;
-  text-align:center;
 }
-main header,
-main p,
-.tags li{
-  line-height:28px;
+main .description{
+  line-height:18px;
+}
+main .digit{
+  display:inline-block;
+  min-width:20px;
+  text-align:center;
 }
 .tags li{
   display:inline-block;
@@ -149,9 +152,6 @@ ol .repo{
   text-decoration:underline;
 }
 
-body{
-  min-width:420px;
-}
 nav{
   position:fixed;
   top:0;
@@ -167,20 +167,29 @@ nav label{
 }
 main{
   width:100%;
+  min-width:480px;
   box-sizing:border-box;
   border-left:180px solid #fff;
   padding:0 20px;
 }
 
 .flash:not(:focus){
-  animation: flash 0.5s linear infinite alternate;
-  -webkit-animation: flash 0.5s linear infinite alternate;
+  animation: flash 5s infinite;
+  -webkit-animation: flash 5s infinite;
 }
 @keyframes flash{
-  from{ color:rgba(255,102,0,1); }
-  to{   color:rgba(255,102,0,0.2); }
+  0%{  color:#f60; background-color:#fff; }
+  88%{ color:#f60; background-color:#fff; }
+  91%{ color:#fff; background-color:#fda; }
+  94%{ color:#f60; background-color:#fff; }
+  97%{ color:#fff; background-color:#fda; }
+  100%{color:#f60; background-color:#fff; }
 }
 @-webkit-keyframes flash{
-  from{ color:rgba(255,102,0,1); }
-  to{   color:rgba(255,102,0,0.2); }
+  0%{  color:#f60; background-color:#fff; }
+  88%{ color:#f60; background-color:#fff; }
+  91%{ color:#fff; background-color:#fda; }
+  94%{ color:#f60; background-color:#fff; }
+  97%{ color:#fff; background-color:#fda; }
+  100%{color:#f60; background-color:#fff; }
 }
