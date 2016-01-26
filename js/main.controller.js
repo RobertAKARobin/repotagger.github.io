@@ -30,7 +30,8 @@
           expires: new Date("Jan 1 2100")
         });
       }
-      if(vm.name) startAPIQuery();
+      if(!vm.name) vm.name = "repotagger";
+      startAPIQuery();
     }());
 
     vm.shouldFlash = function(){
