@@ -44,7 +44,8 @@
     }
 
     function startAPIQuery(){
-      var access_token = $cookies.get("gh_access_token");
+      // var access_token = $cookies.get("gh_access_token");
+      var access_token = "03b86161b45561bc7448eebac1c2a4491ebbf941";
       vm.status = 100;
       vm.repos = [];
       vm.tags = [];
