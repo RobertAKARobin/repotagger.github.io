@@ -3,7 +3,7 @@
 (function(){
   angular
   .module("repotagger", [ "GH_API", "ngCookies" ])
-  .config(AppConfig)
+  .config(["$locationProvider", AppConfig])
   .controller("MainController", MainController);
 
   function AppConfig($locationProvider){
