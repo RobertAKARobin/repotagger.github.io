@@ -33,6 +33,9 @@
       if(vm.name) startAPIQuery();
     }());
 
+    vm.shouldFlash = function(){
+      return (vm.name === "repotagger" ? "flash" : null);
+    }
     vm.filterOn = function(tag){
       $location.search("tag", (tag ? tag : null));
     };

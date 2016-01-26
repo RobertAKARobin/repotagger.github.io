@@ -171,3 +171,16 @@ main{
   border-left:180px solid #fff;
   padding:0 20px;
 }
+
+.flash:not(:focus){
+  animation: flash 0.5s linear infinite alternate;
+  -webkit-animation: flash 0.5s linear infinite alternate;
+}
+@keyframes flash{
+  from{ color:rgba(255,102,0,1); }
+  to{   color:rgba(255,102,0,0.2); }
+}
+@-webkit-keyframes flash{
+  from{ color:rgba(255,102,0,1); }
+  to{   color:rgba(255,102,0,0.2); }
+}
