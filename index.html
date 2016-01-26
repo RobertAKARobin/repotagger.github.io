@@ -32,7 +32,7 @@
         <label for="sortAscend">A-Z</label>
       </fieldset>
       <ul>
-        <li data-ng-click="vm.filterOn('all')">All <span>{{vm.repos.length}}</span></li>
+        <li data-ng-click="vm.filterOn(null)">All <span>{{vm.repos.length}}</span></li>
         <li data-ng-click="vm.filterOn('untagged')">Untagged <span>{{vm.untagged}}</span></li>
         <li data-ng-repeat="tag in vm.tags | orderBy:vm.tagSort:!vm.tagSortAscend" data-ng-click="vm.filterOn(tag.name)">
           {{tag.name}} <span>{{tag.count}}</span>
