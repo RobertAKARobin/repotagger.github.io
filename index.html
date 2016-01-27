@@ -15,8 +15,8 @@
 
     <nav>
       <a class="button important" target="_blank" href="https://github.com/repotagger/repotagger.github.io#repotagger" title="This aims to be a simpler way of navigating all of an organization's repos. Click for more info.">About RepoTagger</a>
-      <input id="name" type="text" placeholder="GitHub org/user name" data-ng-class="vm.shouldFlash()" data-ng-model="vm.name" data-ng-keypress="vm.submitForm($event)" />
-      <button data-ng-click="vm.startAPIQuery()" data-ng-switch="vm.status">
+      <input id="name" type="text" placeholder="GitHub org/user name" data-ng-class="vm.shouldFlash()" data-ng-model="vm.name" data-ng-keypress="vm.submitForm($event)" title="Enter the name of a Github organization or user" />
+      <button data-ng-click="vm.startAPIQuery()" data-ng-switch="vm.status" title="Click to submit!">
         <span data-ng-switch-when="0">Load their repos!</span>
         <span data-ng-switch-when="100">Loading...</span>
         <span data-ng-switch-when="200">Reload repos</span>
@@ -25,11 +25,11 @@
       </button>
       <fieldset>
         <input type="radio" data-ng-model="vm.tagSort" value="name" id="sortByName" />
-        <label for="sortByName">Name</label>
+        <label for="sortByName" title="Sort tags by name">Name</label>
         <input type="radio" data-ng-model="vm.tagSort" value="count" id="sortByCount" />
-        <label for="sortByCount">Count</label>
+        <label for="sortByCount" title="Sort tags by quantity">Count</label>
         <input type="checkbox" data-ng-model="vm.tagSortAscend" id="sortAscend" />
-        <label for="sortAscend">A-Z</label>
+        <label for="sortAscend" title="Change sort direction of tags">A-Z</label>
       </fieldset>
       <ul class="taglist">
         <li data-ng-click="vm.filterOn(null)">All <span>{{vm.repos.length}}</span></li>
@@ -45,9 +45,9 @@
         <li class="repo options">
           <header>
             <p class="stats">
-              <span class="digit" data-ng-click="vm.repoSortBy('stargazers_count')" title="Stars">&bigstar;</span>
+              <span class="digit" data-ng-click="vm.repoSortBy('stargazers_count')" title="Sort by number of stars">&bigstar;</span>
             </p>
-            <h2 data-ng-click="vm.repoSortBy('name')">Name</h2>
+            <h2 title="Sort alphabetically" data-ng-click="vm.repoSortBy('name')">Name</h2>
           </header>
         </li>
       </ul>
