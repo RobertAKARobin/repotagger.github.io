@@ -1,8 +1,9 @@
 "use strict";
 
 (function(){
+// .module("repotagger", [ "GH_API", "ngCookies" ])
   angular
-  .module("repotagger", [ "GH_API", "ngCookies" ])
+  .module("repotagger", [ "GH_API" ])
   .config(["$locationProvider", AppConfig])
   .controller("MainController", MainController);
 
@@ -10,9 +11,11 @@
     $locationProvider.html5Mode(true);
   }
 
-  MainController.$inject = [ "GH_API", "$cookies", "$location", "$scope" ];
+// MainController.$inject = [ "GH_API", "$cookies", "$location", "$scope" ];
+  MainController.$inject = [ "GH_API", "$location", "$scope" ];
 
-  function MainController(GH_API, $cookies, $location, $scope){
+// function MainController(GH_API, $cookies, $location, $scope){
+  function MainController(GH_API, $location, $scope){
     var vm = this;
     vm.status = 0;
     vm.name = $location.search().name;
@@ -24,12 +27,12 @@
 
     (function onLoad(){
       var access_token = $location.search().token;
-      if(access_token){
-        $location.search("token", null);
-        $cookies.put("gh_access_token", access_token, {
-          expires: new Date("Jan 1 2100")
-        });
-      }
+      // if(access_token){
+      //   $location.search("token", null);
+      //   $cookies.put("gh_access_token", access_token, {
+      //     expires: new Date("Jan 1 2100")
+      //   });
+      // }
       if(!vm.name) vm.name = "repotagger";
       startAPIQuery();
     }());
