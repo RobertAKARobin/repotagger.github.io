@@ -37,8 +37,11 @@
       startAPIQuery();
     }());
 
+    vm.submitForm = function($event){
+      if($event.keyCode == 13) startAPIQuery();
+    }
     vm.shouldFlash = function(){
-      return (vm.name === "repotagger" ? "flash" : null);
+      return (vm.name.toLowerCase() === "repotagger" ? "flash" : null);
     }
     vm.filterOn = function(tag){
       $location.search("tag", (tag ? tag : null));

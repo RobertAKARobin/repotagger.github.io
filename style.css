@@ -29,12 +29,12 @@ input[type=checkbox]{
   display:none;
 }
 
-nav input,
 nav label,
 nav button,
+#name,
 .button,
-nav li,
-.tags li{
+.taglist li,
+.repotags li{
   font-size:14px;
   line-height:28px;
   text-transform:uppercase;
@@ -45,6 +45,26 @@ nav li,
   direction:ltr;
 }
 
+#name{
+  box-sizing:border-box;
+  border-right-width:3px;
+  border-style:solid;
+  border-color:rgba(0,0,0,0);
+  text-align:right;
+}
+.flash:not(:focus){
+  animation: flash 1s infinite steps(2,end);
+  -webkit-animation: flash 1s infinite steps(2,end);
+}
+@keyframes flash{
+  from{border-color:rgba(0,0,0,0);}
+  to  {border-color:rgba(0,0,0,1);}
+}
+@-webkit-keyframes flash{
+  from{border-color:rgba(0,0,0,0);}
+  to  {border-color:rgba(0,0,0,1);}
+}
+
 nav{
   background-color:#fff;
   font-size:0;
@@ -53,17 +73,16 @@ nav label{
   display:inline-block;
   width:33.3%;
 }
-nav input,
 nav button,
+#name,
 .button,
-nav li{
+.taglist li{
   display:block;
   width:100%;
 }
 nav label,
 nav button,
-.button,
-nav li{
+.button{
   cursor:pointer;
 }
 nav label:hover,
@@ -73,19 +92,6 @@ nav button:hover,
 }
 nav .button.important{
   color:#fff;
-}
-nav li{
-  border-bottom:1px solid #eee;
-  text-align:left;
-}
-nav li,
-nav input{
-  box-sizing:border-box;
-  padding:0 5px;
-}
-nav input[type=text]:focus,
-nav li:hover{
-  background-color:#eef;
 }
 nav label,
 nav button,
@@ -97,7 +103,22 @@ nav input:checked+label{
   background-color:#69c;
   color:#bdf;
 }
-nav li span{
+
+nav input,
+.taglist li{
+  box-sizing:border-box;
+  padding:0 5px;
+}
+nav input:focus,
+.taglist li:hover{
+  background-color:#eef;
+}
+.taglist li{
+  border-bottom:1px solid #eee;
+  text-align:left;
+  cursor:pointer;
+}
+.taglist li span{
   float:right;
 }
 
@@ -125,12 +146,12 @@ main .digit{
   min-width:20px;
   text-align:center;
 }
-.tags li{
+.repotags li{
   display:inline-block;
   padding-right:20px;
   cursor:pointer;
 }
-.tags li:hover{
+.repotags li:hover{
   color:#69c;
 }
 ol .repo{
@@ -150,27 +171,6 @@ ol .repo{
 .options h2:hover,
 .options span:hover{
   text-decoration:underline;
-}
-
-.flash:not(:focus){
-  animation: flash 5s infinite;
-  -webkit-animation: flash 5s infinite;
-}
-@keyframes flash{
-  0%{  color:#f60; background-color:#fff; }
-  88%{ color:#f60; background-color:#fff; }
-  91%{ color:#fff; background-color:#fda; }
-  94%{ color:#f60; background-color:#fff; }
-  97%{ color:#fff; background-color:#fda; }
-  100%{color:#f60; background-color:#fff; }
-}
-@-webkit-keyframes flash{
-  0%{  color:#f60; background-color:#fff; }
-  88%{ color:#f60; background-color:#fff; }
-  91%{ color:#fff; background-color:#fda; }
-  94%{ color:#f60; background-color:#fff; }
-  97%{ color:#fff; background-color:#fda; }
-  100%{color:#f60; background-color:#fff; }
 }
 
 @media (min-width:421px){
