@@ -49,6 +49,10 @@ nav{
   background-color:#fff;
   font-size:0;
 }
+nav label{
+  display:inline-block;
+  width:33.3%;
+}
 nav input,
 nav button,
 .button,
@@ -103,10 +107,6 @@ main{
 main header{
   line-height:28px;
 }
-main header a,
-main header span{
-  margin-right:20px;
-}
 main h2 .name{
   font-weight:bold;
   color:#369;
@@ -152,27 +152,6 @@ ol .repo{
   text-decoration:underline;
 }
 
-nav{
-  position:fixed;
-  top:0;
-  left:0;
-  width:180px;
-  height:100vh;
-  overflow-y:scroll;
-  direction:rtl;
-}
-nav label{
-  display:inline-block;
-  width:33.3%;
-}
-main{
-  width:100%;
-  min-width:480px;
-  box-sizing:border-box;
-  border-left:180px solid #fff;
-  padding:0 20px;
-}
-
 .flash:not(:focus){
   animation: flash 5s infinite;
   -webkit-animation: flash 5s infinite;
@@ -192,4 +171,28 @@ main{
   94%{ color:#f60; background-color:#fff; }
   97%{ color:#fff; background-color:#fda; }
   100%{color:#f60; background-color:#fff; }
+}
+
+@media (min-width:421px){
+  nav{
+    position:fixed;
+    top:0;
+    left:0;
+    width:180px;
+    height:100vh;
+    overflow-y:scroll;
+    direction:rtl;
+  }
+  main{
+    min-width:480px;
+    border-left:180px solid #fff;
+    box-sizing:border-box;
+    padding:0 20px;
+  }
+}
+
+@media (max-width:420px){
+  main{
+    padding:0 5px;
+  }
 }
