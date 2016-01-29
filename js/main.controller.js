@@ -1,7 +1,6 @@
 "use strict";
 
 (function(){
-// .module("repotagger", [ "GH_API", "ngCookies" ])
   angular
   .module("repotagger", [ "GH_API" ])
   .config(["$locationProvider", AppConfig])
@@ -11,10 +10,8 @@
     $locationProvider.html5Mode(true);
   }
 
-// MainController.$inject = [ "GH_API", "$cookies", "$location", "$scope" ];
   MainController.$inject = [ "GH_API", "$location", "$scope" ];
 
-// function MainController(GH_API, $cookies, $location, $scope){
   function MainController(GH_API, $location, $scope){
     var vm = this;
     vm.status = 0;
@@ -26,13 +23,6 @@
     vm.startAPIQuery = startAPIQuery;
 
     (function onLoad(){
-      var access_token = $location.search().token;
-      // if(access_token){
-      //   $location.search("token", null);
-      //   $cookies.put("gh_access_token", access_token, {
-      //     expires: new Date("Jan 1 2100")
-      //   });
-      // }
       if(!vm.name) vm.name = "repotagger";
       startAPIQuery();
     }());
@@ -60,25 +50,14 @@
     }
 
     function startAPIQuery(){
-      // var access_token = $cookies.get("gh_access_token");
-      var access_token = "03b86161b45561bc7448eebac1c2a4491ebbf941";
       vm.status = 100;
       vm.repos = [];
       vm.tags = [];
       vm.untagged = 0;
       $location.search("name", vm.name.toLowerCase());
-      if(!access_token) redirectToLogin();
-      else GH_API("users/" + vm.name + "/repos", completedAPIQuery, {
-        params: { access_token: access_token }
+      GH_API("users/" + vm.name + "/repos", completedAPIQuery, {
+        params: { access_token: "03b86161b45561bc7448eebac1c2a4491ebbf941" }
       });
-    }
-
-    function redirectToLogin(){
-      var login_url = (function(){
-        if (/(127\.0\.0\.1)|(localhost)/g.test($location.host())) return "http://127.0.0.1:3000";
-        else return "http://github_login.robertakarobin.com";
-      }());
-      location.href = login_url + "?redirect_to=" + encodeURIComponent($location.absUrl());
     }
 
     function completedAPIQuery(repos){
