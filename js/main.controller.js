@@ -49,6 +49,7 @@
     vm.filterer = function(repo){
       var filter = $location.search().tag;
       if(repo.tags && repo.tags.indexOf(filter) > -1) return true;
+      else if(filter === "tagged" && repo.tags && repo.tags.length > 0) return true;
       else if(filter === "untagged" && (!repo.tags || repo.tags.length < 1)) return true;
       else if(!filter || filter === "all") return true;
       else return false;

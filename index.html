@@ -32,8 +32,9 @@
         <label for="sortAscend" title="Change sort direction of tags">A-Z</label>
       </fieldset>
       <ul class="taglist">
-        <li data-ng-click="vm.filterOn(null)">All <span>{{vm.repos.length}}</span></li>
-        <li data-ng-click="vm.filterOn('untagged')">Untagged <span>{{vm.untagged}}</span></li>
+        <li data-ng-click="vm.filterOn(null)">&bull; All <span>{{vm.repos.length}}</span></li>
+        <li data-ng-click="vm.filterOn('tagged')">&bull; Tagged <span>{{vm.repos.length - vm.untagged}}</span></li>
+        <li data-ng-click="vm.filterOn('untagged')">&bull; Untagged <span>{{vm.untagged}}</span></li>
         <li data-ng-repeat="tag in vm.tags | orderBy:vm.tagSort:!vm.tagSortAscend" data-ng-click="vm.filterOn(tag.name)">
           {{tag.name}} <span>{{tag.count}}</span>
         </li>
