@@ -7,8 +7,7 @@
     <base href="/" />
     <link rel="stylesheet" href="style.css" />
     <script src="https://code.angularjs.org/1.4.8/angular.min.js"></script>
-    <script src="js/main.controller.js"></script>
-    <script src="js/gh_api.factory.js"></script>
+    <script src="app.js"></script>
   </head>
   <body data-ng-app="repotagger" data-ng-controller="MainController as vm">
 
@@ -17,7 +16,7 @@
       <input id="name" type="text" placeholder="GitHub org/user name" data-ng-class="vm.shouldFlash()" data-ng-model="vm.name" data-ng-keypress="vm.submitForm($event)" title="Enter the name of a Github organization or user" />
       <button data-ng-click="vm.startAPIQuery()" data-ng-switch="vm.status" title="Click to submit!">
         <span data-ng-switch-when="0">Load their repos!</span>
-        <span data-ng-switch-when="100">Loading...</span>
+        <span data-ng-switch-when="100">Loading page {{vm.page}}{{vm.last}}...</span>
         <span data-ng-switch-when="200">Reload repos</span>
         <span data-ng-switch-when="403">Try again later.</span>
         <span data-ng-switch-when="404">Not found! :(</span>
@@ -52,7 +51,7 @@
         </li>
       </ul>
       <ol>
-        <li class="repo" data-ng-repeat="repo in vm.repos | filter:vm.filterer | orderBy:vm.repoSort:vm.repoSortReverse">
+        <li class="repo" data-ng-repeat="repo in vm.repos | filter:vm.filterer | orderBy:vm.repoSort:vm.repoSortAscend">
           <header>
             <p class="stats">
               <span>{{repo.language}}</span>
