@@ -72,7 +72,7 @@
               <span class="digit">{{repo.stargazers_count}}</span>
             </p>
             <h2>
-              <a class="name" data-ng-href="{{repo.html_url}}" target="_blank">{{repo.name}}</a>
+              <a class="name" data-ng-href="{{repo.html_url}}" target="_blank"><span data-ng-if="repo.fork">&disin; </span>{{repo.name}}</a>
               <a class="homepage" data-ng-href="{{repo.homepage}}" target="_blank">{{repo.homepage}}</a>
             </h2>
           </header>
