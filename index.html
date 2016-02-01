@@ -22,12 +22,18 @@
         <span data-ng-switch-when="404">Not found! :(</span>
       </button>
       <fieldset>
-        <input type="radio" data-ng-model="vm.tagSort" value="name" id="sortByName" />
-        <label for="sortByName" title="Sort tags by name">Name</label>
-        <input type="radio" data-ng-model="vm.tagSort" value="count" id="sortByCount" />
-        <label for="sortByCount" title="Sort tags by quantity">Count</label>
-        <input type="checkbox" data-ng-model="vm.tagSortAscend" id="sortAscend" />
-        <label for="sortAscend" title="Change sort direction of tags">A-Z</label>
+        <input type="radio" data-ng-click="vm.tagSortBy('name')" checked name="tagSort" id="sortByName" />
+        <label for="sortByName" title="Sort tags by name">
+          <span>Name</span>
+          <span data-ng-if="vm.tagSort == 'name' && vm.tagSortAscend">A-Z</span>
+          <span data-ng-if="vm.tagSort == 'name' && !vm.tagSortAscend">Z-A</span>
+        </label>
+        <input type="radio" data-ng-click="vm.tagSortBy('count')" name="tagSort" id="sortByCount" />
+        <label for="sortByCount" title="Sort tags by quantity">
+          <span>Count</span>
+          <span data-ng-if="vm.tagSort == 'count' && vm.tagSortAscend">(123)</span>
+          <span data-ng-if="vm.tagSort == 'count' && !vm.tagSortAscend">(321)</span>
+        </label>
       </fieldset>
       <ul class="taglist">
         <li data-ng-click="vm.filterOn(null)">&bull; All <span>{{vm.data.repos.length}}</span></li>
@@ -44,9 +50,17 @@
         <li class="repo options">
           <header>
             <p class="stats">
-              <span class="digit" data-ng-click="vm.repoSortBy('stargazers_count')" title="Sort by number of stars">&bigstar;</span>
+              <span class="digit" data-ng-click="vm.repoSortBy('stargazers_count')" title="Sort by number of stars">
+                <span>&bigstar;</span>
+                <span data-ng-if="vm.repoSort == 'stargazers_count' && vm.repoSortAscend">(321)</span>
+                <span data-ng-if="vm.repoSort == 'stargazers_count' && !vm.repoSortAscend">(123)</span>
+              </span>
             </p>
-            <h2 title="Sort alphabetically" data-ng-click="vm.repoSortBy('name')">Name</h2>
+            <h2 title="Sort alphabetically" data-ng-click="vm.repoSortBy('name')">
+              <span>Name</span>
+              <span data-ng-if="vm.repoSort == 'name' && vm.repoSortAscend">(Z-A)</span>
+              <span data-ng-if="vm.repoSort == 'name' && !vm.repoSortAscend">(A-Z)</span>
+            </h2>
           </header>
         </li>
       </ul>

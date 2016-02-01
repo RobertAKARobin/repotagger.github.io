@@ -94,9 +94,9 @@
     vm.status = 0;
     vm.name = $location.search().name;
     vm.tagSort = "name";
-    vm.tagSortAscend = true;
+    vm.tagSortAscend = false;
     vm.repoSort = "name";
-    vm.repoSortAscend = false;
+    vm.repoSortAscend = true;
 
     vm.startAPIQuery = function(){
       $location.search("name", vm.name.toLowerCase());
@@ -119,13 +119,19 @@
       else if(!filter || filter === "all") return true;
       else return false;
     }
-    vm.repoSortBy = function(what){
+    vm.repoSortBy = function(byWhat){
       vm.repoSortAscend = !(vm.repoSortAscend);
-      vm.repoSort = what;
+      vm.repoSort = byWhat;
+    }
+    vm.tagSortBy = function(byWhat){
+      vm.tagSortAscend = !(vm.tagSortAscend);
+      vm.tagSort = byWhat;
     }
     vm.init = function(){
       if(!vm.name) vm.name = "repotagger";
       vm.startAPIQuery();
+      vm.tagSortBy('name');
+      vm.repoSortBy('name');
     }
   }
 }());
