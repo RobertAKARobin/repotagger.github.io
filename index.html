@@ -37,7 +37,7 @@
       </fieldset>
       <ul class="taglist">
         <li data-ng-click="vm.filterOn(null)">&bull; All <span>{{vm.data.repos.length}}</span></li>
-        <li data-ng-click="vm.filterOn('tagged')">&bull; Tagged <span>{{vm.data.repos.length - vm.untagged}}</span></li>
+        <li data-ng-click="vm.filterOn('tagged')">&bull; Tagged <span>{{vm.data.repos.length - vm.data.untagged}}</span></li>
         <li data-ng-click="vm.filterOn('untagged')">&bull; Untagged <span>{{vm.data.untagged}}</span></li>
         <li data-ng-repeat="tag in vm.data.tags | orderBy:vm.tagSort:!vm.tagSortAscend" data-ng-click="vm.filterOn(tag.name)">
           {{tag.name}} <span>{{tag.count}}</span>
