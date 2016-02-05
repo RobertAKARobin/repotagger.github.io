@@ -55,6 +55,11 @@
                 <span data-ng-if="vm.repoSort == 'stargazers_count' && vm.repoSortAscend">(321)</span>
                 <span data-ng-if="vm.repoSort == 'stargazers_count' && !vm.repoSortAscend">(123)</span>
               </span>
+              <span class="digit" data-ng-click="vm.repoSortBy('open_issues_count')" title="Sort by number of issues and pull requests">
+                <span>!!</span>
+                <span data-ng-if="vm.repoSort == 'open_issues_count' && vm.repoSortAscend">(321)</span>
+                <span data-ng-if="vm.repoSort == 'open_issues_count' && !vm.repoSortAscend">(123)</span>
+              </span>
             </p>
             <h2 title="Sort alphabetically" data-ng-click="vm.repoSortBy('name')">
               <span>Name</span>
@@ -70,6 +75,7 @@
             <p class="stats">
               <span>{{repo.language}}</span>
               <span class="digit">{{repo.stargazers_count}}</span>
+              <span class="digit">{{repo.open_issues_count}}</span>
             </p>
             <h2>
               <a class="name" data-ng-href="{{repo.html_url}}" target="_blank"><span data-ng-if="repo.fork">&disin; </span>{{repo.name}}</a>
