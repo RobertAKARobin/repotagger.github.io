@@ -50,7 +50,6 @@ nav button,
   border-right-width:3px;
   border-style:solid;
   border-color:rgba(0,0,0,0);
-  text-align:right;
 }
 .flash:not(:focus){
   animation: flash 1s infinite steps(2,end);
