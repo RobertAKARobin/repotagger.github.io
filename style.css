@@ -29,7 +29,7 @@ input[type=checkbox]{
   display:none;
 }
 
-nav label,
+nav .option,
 nav button,
 #name,
 .button,
@@ -69,7 +69,7 @@ nav{
   background-color:#fff;
   font-size:0;
 }
-nav label{
+nav .option{
   display:inline-block;
   width:50%;
 }
@@ -80,12 +80,12 @@ nav button,
   display:block;
   width:100%;
 }
-nav label,
+nav .option,
 nav button,
 .button{
   cursor:pointer;
 }
-nav label:hover,
+nav .option:hover,
 nav button:hover,
 .button:hover{
   background-color:#8be;
@@ -93,13 +93,14 @@ nav button:hover,
 nav .button.important{
   color:#fff;
 }
-nav label,
+nav .option,
 nav button,
 nav .button{
   background-color:#9cf;
   color:#369;
 }
-nav input:checked+label{
+nav .option.asc,
+nav .option.desc{
   background-color:#69c;
   color:#bdf;
 }
@@ -154,23 +155,28 @@ main .digit{
 .repotags li:hover{
   color:#69c;
 }
-ol .repo{
+ol li.repo{
   list-style-type:decimal;
   list-style-position:inside;
 }
-.repo{
+li.repo{
   border-bottom:1px dashed #ccc;
   padding:14px 0;
 }
-.options h2,
-.options span{
+
+main .option{
   color:#369;
   cursor:pointer;
   font-weight:bold;
 }
-.options h2:hover,
-.options span:hover{
+main .option:hover{
   text-decoration:underline;
+}
+.option.asc:after{
+  content:"(a-z)";
+}
+.option.desc:after{
+  content:"(z-a)";
 }
 
 @media (min-width:421px){

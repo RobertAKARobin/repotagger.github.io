@@ -10,7 +10,11 @@
     <script src="app.js"></script>
   </head>
   <body data-ng-app="repotagger" data-ng-controller="MainController as vm" data-ng-init="vm.init()">
-
+    <script type="text/ng-template" id="sortHeader.html">
+      <span class="option" data-ng-click="sort()" title="{{title}}">
+        <span data-ng-transclude></span> {{sortDir()}}
+      </span>
+    </script>
     <nav>
       <a class="button important" target="_blank" href="https://github.com/repotagger/repotagger.github.io#repotagger" title="This aims to be a simpler way of navigating all of an organization's repos. Click for more info.">About RepoTagger</a>
       <input id="name" type="text" placeholder="GitHub org/user name" data-ng-class="vm.shouldFlash()" data-ng-model="vm.name" data-ng-keypress="vm.submitForm($event)" title="Enter the name of a Github organization or user" />
@@ -22,18 +26,8 @@
         <span data-ng-switch-when="404">Not found! :(</span>
       </button>
       <fieldset>
-        <input type="radio" data-ng-click="vm.tagSortBy('name')" checked name="tagSort" id="sortByName" />
-        <label for="sortByName" title="Sort tags by name">
-          <span>Name</span>
-          <span data-ng-if="vm.tagSort == 'name' && vm.tagSortAscend">A-Z</span>
-          <span data-ng-if="vm.tagSort == 'name' && !vm.tagSortAscend">Z-A</span>
-        </label>
-        <input type="radio" data-ng-click="vm.tagSortBy('count')" name="tagSort" id="sortByCount" />
-        <label for="sortByCount" title="Sort tags by quantity">
-          <span>Count</span>
-          <span data-ng-if="vm.tagSort == 'count' && vm.tagSortAscend">(123)</span>
-          <span data-ng-if="vm.tagSort == 'count' && !vm.tagSortAscend">(321)</span>
-        </label>
+        <span data-sortable data-type="tag" data-field="name" data-title="Sort tags by name">Name</span>
+        <span data-sortable data-type="tag" data-field="count" data-title="Sort tags by count">Count</span>
       </fieldset>
       <ul class="taglist">
         <li data-ng-click="vm.filterOn(null)">&bull; All <span>{{vm.data.repos.length}}</span></li>
@@ -50,22 +44,10 @@
         <li class="repo options">
           <header>
             <p class="stats">
-              <span class="digit" data-ng-click="vm.repoSortBy('stargazers_count')" title="Sort by number of stars">
-                <span>&bigstar;</span>
-                <span data-ng-if="vm.repoSort == 'stargazers_count' && vm.repoSortAscend">(321)</span>
-                <span data-ng-if="vm.repoSort == 'stargazers_count' && !vm.repoSortAscend">(123)</span>
-              </span>
-              <span class="digit" data-ng-click="vm.repoSortBy('open_issues_count')" title="Sort by number of issues and pull requests">
-                <span>!!</span>
-                <span data-ng-if="vm.repoSort == 'open_issues_count' && vm.repoSortAscend">(321)</span>
-                <span data-ng-if="vm.repoSort == 'open_issues_count' && !vm.repoSortAscend">(123)</span>
-              </span>
+              <span class="digit" data-sortable data-type="repo" data-field="stargazers_count" data-title="Sort by number of stars">&bigstar;</span>
+              <span class="digit" data-sortable data-type="repo" data-field="open_issues_count" data-title="Sort by number of open issues">!!</span>
             </p>
-            <h2 title="Sort alphabetically" data-ng-click="vm.repoSortBy('name')">
-              <span>Name</span>
-              <span data-ng-if="vm.repoSort == 'name' && vm.repoSortAscend">(Z-A)</span>
-              <span data-ng-if="vm.repoSort == 'name' && !vm.repoSortAscend">(A-Z)</span>
-            </h2>
+            <span data-sortable data-type="repo" data-field="name" data-title="Sort alphabetically">Name</span>
           </header>
         </li>
       </ul>
@@ -91,6 +73,5 @@
         </li>
       </ol>
     </main>
-
   </body>
 </html>
