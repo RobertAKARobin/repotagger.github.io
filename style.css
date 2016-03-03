@@ -51,7 +51,7 @@ nav button,
   border-style:solid;
   border-color:rgba(0,0,0,0);
 }
-.flash:not(:focus){
+.flash{
   animation: flash 1s infinite steps(2,end);
   -webkit-animation: flash 1s infinite steps(2,end);
 }

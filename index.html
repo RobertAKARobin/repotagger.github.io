@@ -17,7 +17,7 @@
     </script>
     <nav>
       <a class="button important" target="_blank" href="https://github.com/repotagger/repotagger.github.io#repotagger" title="This aims to be a simpler way of navigating all of an organization's repos. Click for more info.">About RepoTagger</a>
-      <input id="name" type="text" placeholder="GitHub org/user name" data-ng-class="vm.shouldFlash()" data-ng-model="vm.name" data-ng-keypress="vm.submitForm($event)" title="Enter the name of a Github organization or user" />
+      <input id="name" class="flash" type="text" placeholder="GitHub org/user name" data-ng-model="vm.name" data-ng-keypress="vm.submitForm($event)" title="Enter the name of a Github organization or user" />
       <button data-ng-click="vm.startAPIQuery()" data-ng-switch="vm.data.status" title="Click to submit!">
         <span data-ng-switch-when="0">Load their repos!</span>
         <span data-ng-switch-when="100">Loading page {{vm.data.page}}{{vm.data.last}}...</span>
