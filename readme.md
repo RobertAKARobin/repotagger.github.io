@@ -1,4 +1,4 @@
-# RepoTagger
+# ![foo](favicon.png) RepoTagger 
 
 I got tired of digging through all my repos to see which were Ruby, which were Javascript, and so on. So I made this janky system of tagging repos, and sorting them by those tags (as well as the repo names and number of stars).
 

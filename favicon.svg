@@ -1,1 +1,12 @@
-<svg id="Layer_1" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 34.99 34.99"><defs><style>.cls-1{fill:#9fc9eb;stroke:#33669a;stroke-miterlimit:10;}.cls-2{font-size:13.26px;fill:#33669a;font-family:Helvetica Neue;}</style></defs><title>favicon</title><path class="cls-1" d="M34.09,1H21.86a0.9,0.9,0,0,0-.64.26l-20,20a0.9,0.9,0,0,0,0,1.27L13.5,34.73a0.9,0.9,0,0,0,1.27,0l20-20A0.9,0.9,0,0,0,35,14.14V1.9A0.9,0.9,0,0,0,34.09,1Zm-2.51,5.2a1.87,1.87,0,1,1,1.87-1.87A1.87,1.87,0,0,1,31.58,6.21Z" transform="translate(-0.51 -0.51)"/><text class="cls-2" transform="translate(11.32 28.73) rotate(-45)">a - z</text></svg>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg xmlns="http://www.w3.org/2000/svg" width="500px" height="500px" viewBox="0 0 500 500" enable-background="new 0 0 500 500">
+   <!-- Thanks to Tyler Crosse! -->
+   <title>RepoTagger</title>
+   <path fill="#9FC9EB" stroke="#33669A" stroke-width="13" stroke-miterlimit="10" d="M479.852,7.002H305.088
+	c-3.422-0.027-6.713,1.31-9.146,3.715L10.146,296.514c-4.996,5.018-4.996,13.13,0,18.147l175.479,174.336
+	c5.018,4.996,13.13,4.996,18.148,0l285.796-285.796c2.081-2.32,3.249-5.315,3.287-8.431V19.863c0-7.103-5.758-12.861-12.86-12.862
+	C479.947,7.001,479.899,7.001,479.852,7.002z M443.984,81.309c-14.759,0-26.723-11.964-26.723-26.722
+	c0-14.758,11.964-26.722,26.723-26.722c14.758,0,26.722,11.964,26.722,26.722c0.079,14.758-11.821,26.786-26.579,26.865
+	c-0.048,0-0.096,0-0.143,0V81.309z"/>
+  <text transform="matrix(0.7071 -0.7071 0.7071 0.7071 161.7544 410.5439)" fill="#33669A" font-family="HelveticaNeue" font-size="171.4776">a - z</text>
+</svg>
