@@ -18,15 +18,15 @@
     var pvt = {};
     return function(name){
       q = this;
-      q.name = name;
+      q.name        = name;
       pvt.tagCounts = {};
-      q.status = 100;
-      q.page = 0;
-      q.last = null;
-      q.repos = [];
-      q.tags = [];
-      q.untagged = 0;
-      q.page = 0;
+      q.status      = 100;
+      q.page        = 0;
+      q.last        = null;
+      q.repos       = [];
+      q.tags        = [];
+      q.untagged    = 0;
+      q.page        = 0;
       send("https://api.github.com/users/" + q.name + "/repos", {
         params:{ per_page: "100", access_token: "03b86161b45561bc7448eebac1c2a4491ebbf941"}
       });
@@ -123,11 +123,11 @@
   MainController.$inject = [ "$location", "APIQuery" ];
   function MainController($location, APIQuery){
     var vm = this;
-    vm.status = 0;
-    vm.name = $location.search().name;
-    vm.tagSort = "name";
-    vm.tagSortAscend = true;
-    vm.repoSort = "name";
+    vm.status         = 0;
+    vm.name           = $location.search().name;
+    vm.tagSort        = "name";
+    vm.tagSortAscend  = true;
+    vm.repoSort       = "name";
     vm.repoSortAscend = false;
 
     vm.startAPIQuery = function(){
