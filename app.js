@@ -126,9 +126,9 @@
     vm.status = 0;
     vm.name = $location.search().name;
     vm.tagSort = "name";
-    vm.tagSortAscend = false;
+    vm.tagSortAscend = true;
     vm.repoSort = "name";
-    vm.repoSortAscend = true;
+    vm.repoSortAscend = false;
 
     vm.startAPIQuery = function(){
       $location.search("name", vm.name.toLowerCase());
@@ -151,8 +151,6 @@
     vm.init = function(){
       if(!vm.name) vm.name = "repotagger";
       vm.startAPIQuery();
-      vm.tagSort = "name";
-      vm.repoSort = "name";
     }
   }
 }());
