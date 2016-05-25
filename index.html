@@ -46,6 +46,7 @@
         <li class="repo options">
           <header>
             <p class="stats">
+              <span data-sortable data-type="repo" data-field="created_at" data-title="Sort by date updated">Created</span>
               <span data-sortable data-type="repo" data-field="updated_at" data-title="Sort by date updated">Updated</span>
               <span class="digit" data-sortable data-type="repo" data-field="stargazers_count" data-title="Sort by number of stars">&bigstar;</span>
               <span class="digit" data-sortable data-type="repo" data-field="open_issues_count" data-title="Sort by number of open issues">!!</span>
@@ -59,6 +60,7 @@
           <header>
             <p class="stats">
               <span>{{repo.language}}</span>
+              <span>{{repo.created_at | date:"MM/dd/yy"}}</span>
               <span>{{repo.updated_at | date:"MM/dd/yy"}}</span>
               <span class="digit">{{repo.stargazers_count}}</span>
               <span class="digit">{{repo.open_issues_count}}</span>
