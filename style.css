@@ -8,7 +8,6 @@
   font-style: inherit;
   line-height: inherit;
   letter-spacing: inherit;
-  border-collapse: collapse;
   text-decoration: inherit;
   text-transform: inherit;
   text-align: inherit;
@@ -31,6 +30,14 @@ body {
   color: #444;
 }
 
+a:hover {
+  cursor: pointer;
+}
+
+p {
+  line-height: 24px;
+}
+
 .asc:after {
   content: "(a-z)";
 }
@@ -50,18 +57,9 @@ input[type=text] {
   border-style: solid;
   border-color: transparent;
   animation: flash 1s infinite steps(2, end);
-  -webkit-animation: flash 1s infinite steps(2, end);
 }
 
 @keyframes flash {
-  from {
-    border-color: transparent;
-  }
-  to {
-    border-color: black;
-  }
-}
-@-webkit-keyframes flash {
   from {
     border-color: transparent;
   }
@@ -83,14 +81,16 @@ nav {
 nav > * {
   direction: ltr;
 }
-nav button {
+nav button,
+nav .button {
   display: block;
   width: 100%;
   background-color: #9cf;
   color: #369;
   cursor: pointer;
 }
-nav button:hover {
+nav button:hover,
+nav .button:hover {
   background-color: #8be;
 }
 nav fieldset > * {
@@ -123,48 +123,56 @@ nav .taglist li span {
   float: right;
 }
 
-main {
+.repos {
   color: #999;
   line-height: 28px;
+  border-collapse: separate;
+  width: 100%;
+  text-align: left;
 }
-main h2 .name {
+.repos th {
   font-weight: bold;
   color: #369;
+  cursor: pointer;
 }
-main .homepage {
+.repos th:hover {
   text-decoration: underline;
 }
-main .stats {
-  float: right;
+.repos .header > * {
+  padding-top: 10px;
+  padding-bottom: 10px;
+  white-space: nowrap;
 }
-main .description {
-  line-height: 18px;
+.repos .homepage {
+  color: #666;
+  text-decoration: underline;
+  padding-left: 1em;
+  word-break: break-all;
+  white-space: normal;
 }
-main .digit {
-  display: inline-block;
-  min-width: 20px;
-  text-align: center;
+.repos .repo {
+  border-top: 1px dashed #ccc;
 }
-main .repotags li {
+.repos .tags {
+  font-size: 0;
+  line-height: 0;
+  margin: 10px 0;
+}
+.repos .tags li {
   display: inline-block;
   padding-right: 20px;
   cursor: pointer;
+  font-size: 10px;
+  line-height: 20px;
+  font-weight: bold;
+  text-transform: uppercase;
+  letter-spacing: 1px;
 }
-main .repotags li:hover {
+.repos .tags li:hover {
   color: #69c;
 }
 
-ol li.repo {
-  list-style-type: decimal;
-  list-style-position: inside;
-}
-
-li.repo {
-  border-bottom: 1px dashed #ccc;
-  padding: 14px 0;
-}
-
-@media (min-width: 421px) {
+@media (min-width: 631px) {
   nav {
     position: fixed;
     top: 0;
@@ -173,19 +181,23 @@ li.repo {
     height: 100vh;
   }
 
-  main {
+  body {
     min-width: 480px;
     border-left: 180px solid #fff;
     box-sizing: border-box;
-    padding: 0 20px;
+    padding: 0 10px;
   }
 }
-@media (max-width: 420px) {
+@media (max-width: 630px) {
   nav {
     overflow-y: visible;
   }
 
-  main {
+  [colspan] {
     padding: 0 5px;
+  }
+
+  .homepage {
+    float: right;
   }
 }

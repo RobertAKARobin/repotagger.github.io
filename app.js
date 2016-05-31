@@ -1,12 +1,13 @@
 "use strict";
 
 (function(){
-    angular
+    var ng = angular;
+    
+    ng
     .module("repotagger", [ ])
     .config(["$locationProvider", AppConfig])
     .factory("APIQuery", APIQuery)
-    .controller("MainController", MainController)
-    .directive("sortable", SortableDirective);
+    .controller("MainController", MainController);
     
     function AppConfig($locationProvider){
         $locationProvider.html5Mode(true);
@@ -89,46 +90,21 @@
         }
     }
     
-    SortableDirective.$inject = [ "$templateCache" ];
-    function SortableDirective($templateCache){
-        return {
-            replace: true,
-            transclude: true,
-            template: $templateCache.get("sortHeader.html"),
-            scope: {
-                field:  "@",
-                title:  "@",
-                type:   "@"
-            },
-            link: function(scope, el){
-                var vm = scope.vm = scope.$parent.vm;
-                el.addClass(scope.type);
-                scope.sort = function(){
-                    var sortField = scope.type + "Sort";
-                    var ascendField = scope.type + "SortAscend";
-                    var classes = ["." + scope.type + ".asc", "." + scope.type + ".desc"].join(",");
-                    vm[sortField] = scope.field;
-                    vm[ascendField] = !(vm[ascendField]);
-                    angular.forEach(document.querySelectorAll(classes), function(el){
-                        el.classList.remove("asc");
-                        el.classList.remove("desc");
-                    });
-                    el.addClass(vm[ascendField] ? "desc" : "asc");
-                    el.removeClass(vm[ascendField] ? "asc" : "desc");
-                }
-            }
-        }
-    }
-    
     MainController.$inject = [ "$location", "APIQuery" ];
     function MainController($location, APIQuery){
         var vm = this;
         vm.status         = 0;
         vm.name           = $location.search().name;
-        vm.tagSort        = "name";
-        vm.tagSortAscend  = true;
-        vm.repoSort       = "name";
-        vm.repoSortAscend = false;
+        vm.sort           = {
+            tags: {
+                field: "name",
+                descend: true
+            },
+            repos: {
+                field: "name",
+                descend: false
+            }
+        };
         
         vm.startAPIQuery = function(){
             $location.search("name", vm.name.toLowerCase());

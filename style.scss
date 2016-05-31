@@ -1,5 +1,5 @@
-$desktop: "min-width:421px";
-$mobile: "max-width:420px";
+$desktop: "min-width:631px";
+$mobile: "max-width:630px";
 
 *{
     margin:0;
@@ -11,7 +11,6 @@ $mobile: "max-width:420px";
     font-style:inherit;
     line-height:inherit;
     letter-spacing:inherit;
-    border-collapse:collapse;
     text-decoration:inherit;
     text-transform:inherit;
     text-align:inherit;
@@ -31,7 +30,14 @@ html{
 body{
     color:#444;
 }
-
+a{
+    &:hover{
+        cursor:pointer;
+    }
+}
+p{
+    line-height:24px;
+}
 
 .asc:after{
     content:"(a-z)";
@@ -53,14 +59,9 @@ input{
         border-style:solid;
         border-color:rgba(0,0,0,0);
         animation: flash 1s infinite steps(2,end);
-        -webkit-animation: flash 1s infinite steps(2,end);
     }
 }
 @keyframes flash{
-    from{border-color:rgba(0,0,0,0);}
-    to  {border-color:rgba(0,0,0,1);}
-}
-@-webkit-keyframes flash{
     from{border-color:rgba(0,0,0,0);}
     to  {border-color:rgba(0,0,0,1);}
 }
@@ -89,7 +90,8 @@ nav{
     & > *{
         direction:ltr;
     }
-    button{
+    button,
+    .button{
         @include button;
     }
     fieldset > *{
@@ -117,50 +119,56 @@ nav{
     }
 }
 
-main{
+
+.repos{
     color:#999;
     line-height:28px;
+    border-collapse:separate;
+    width:100%;
+    text-align:left;
     
-    h2 .name{
+    th{
         font-weight:bold;
         color:#369;
+        cursor:pointer;
+        &:hover{
+            text-decoration:underline;
+        }
+    }
+    .header > *{
+        padding-top:10px;
+        padding-bottom:10px;
+        white-space:nowrap;
     }
     .homepage{
+        color:#666;
         text-decoration:underline;
+        padding-left:1em;
+        word-break:break-all;
+        white-space:normal;
     }
-    .stats{
-        float:right;
+    .repo{
+        border-top:1px dashed #ccc;
     }
-    .description{
-        line-height:18px;
-    }
-    .digit{
-        display:inline-block;
-        min-width:20px;
-        text-align:center;
-    }
-    
-    .repotags{
+    .tags{
+        font-size:0;
+        line-height:0;
+        margin:10px 0;
         li{
             display:inline-block;
             padding-right:20px;
             cursor:pointer;
+            font-size:10px;
+            line-height:20px;
+            font-weight:bold;
+            text-transform:uppercase;
+            letter-spacing:1px;
             
             &:hover{
                 color:#69c;
             }
         }
     }
-}
-
-
-ol li.repo{
-    list-style-type:decimal;
-    list-style-position:inside;
-}
-li.repo{
-    border-bottom:1px dashed #ccc;
-    padding:14px 0;
 }
 
 @media (#{$desktop}){
@@ -171,11 +179,11 @@ li.repo{
         width:180px;
         height:100vh;
     }
-    main{
+    body{
         min-width:480px;
         border-left:180px solid #fff;
         box-sizing:border-box;
-        padding:0 20px;
+        padding:0 10px;
     }
 }
 
@@ -183,7 +191,10 @@ li.repo{
     nav{
         overflow-y:visible;
     }
-    main{
+    [colspan]{
         padding:0 5px;
+    }
+    .homepage{
+        float:right;
     }
 }

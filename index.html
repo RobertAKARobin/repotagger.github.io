@@ -12,14 +12,9 @@
     <script src="app.js"></script>
 </head>
 <body data-ng-app="repotagger" data-ng-controller="MainController as vm" data-ng-init="vm.init()">
-    <script type="text/ng-template" id="sortHeader.html">
-        <span class="option" data-ng-click="sort()" title="{{title}}">
-            <span data-ng-transclude></span> {{sortDir()}}
-        </span>
-    </script>
     
     <nav>
-        <button><a href="https://github.com/repotagger/repotagger.github.io#repotagger">About RepoTagger</a></button>
+        <h1><a class="button" href="https://github.com/repotagger/repotagger.github.io#repotagger">About RepoTagger</a></h1>
         <input id="name" type="text" placeholder="GitHub org/user name" data-ng-model="vm.name" data-ng-keypress="vm.submitForm($event)" title="Enter the name of a Github organization or user" />
         <button data-ng-click="vm.startAPIQuery()" data-ng-switch="vm.data.status">
             <span data-ng-switch-when="0">Load their repos!</span>
@@ -29,56 +24,59 @@
             <span data-ng-switch-when="404">Not found! :(</span>
         </button>
         <fieldset>
-            <span data-sortable data-type="tag" data-field="name" data-title="Sort tags by name">Name</span>
-            <span data-sortable data-type="tag" data-field="count" data-title="Sort tags by count">Count</span>
+            <button data-ng-repeat="(field, label) in {
+                name: 'Name',
+                count: 'Count'
+            }" data-ng-click="vm.sort.tags.field = field; vm.sort.tags.descend = !vm.sort.tags.descend">{{label}}</button>
         </fieldset>
         <ul class="taglist">
             <li data-ng-click="vm.filterOn(null)">&bull; All <span>{{vm.data.repos.length}}</span></li>
             <li data-ng-click="vm.filterOn('tagged')">&bull; Tagged <span>{{vm.data.repos.length - vm.data.untagged}}</span></li>
             <li data-ng-click="vm.filterOn('untagged')">&bull; Untagged <span>{{vm.data.untagged}}</span></li>
-            <li data-ng-repeat="tag in vm.data.tags | orderBy:vm.tagSort:!vm.tagSortAscend" data-ng-click="vm.filterOn(tag.name)">
+            <li data-ng-repeat="tag in vm.data.tags | orderBy:vm.sort.tags.field : vm.sort.tags.descend" data-ng-click="vm.filterOn(tag.name)">
                 {{tag.name}} <span>{{tag.count}}</span>
             </li>
         </ul>
     </nav>
     
-    <main>
-        <ul>
-            <li class="repo options">
-                <header>
-                    <p class="stats">
-                        <span data-sortable data-type="repo" data-field="created_at" data-title="Sort by date updated">Created</span>
-                        <span data-sortable data-type="repo" data-field="updated_at" data-title="Sort by date updated">Updated</span>
-                        <span class="digit" data-sortable data-type="repo" data-field="stargazers_count" data-title="Sort by number of stars">&bigstar;</span>
-                        <span class="digit" data-sortable data-type="repo" data-field="open_issues_count" data-title="Sort by number of open issues">!!</span>
-                    </p>
-                    <span data-sortable data-type="repo" data-field="name" data-title="Sort alphabetically">Name</span>
-                </header>
-            </li>
-        </ul>
-        <ol>
-            <li class="repo" data-ng-repeat="repo in vm.data.repos | filter:vm.filterer | orderBy:vm.repoSort:vm.repoSortAscend">
-                <header>
-                    <p class="stats">
-                        <span>{{repo.language}}</span>
-                        <span>{{repo.created_at | date:"MM/dd/yy"}}</span>
-                        <span>{{repo.updated_at | date:"MM/dd/yy"}}</span>
-                        <span class="digit">{{repo.stargazers_count}}</span>
-                        <span class="digit">{{repo.open_issues_count}}</span>
-                    </p>
-                    <h2>
-                        <a class="name" data-ng-href="{{repo.html_url}}"><span data-ng-if="repo.fork">&disin; </span>{{repo.name}}</a>
-                        <a class="homepage" data-ng-href="{{repo.homepage}}">{{repo.homepage}}</a>
-                    </h2>
-                </header>
-                <p class="description">{{repo.description_sans_tags}}</p>
-                <ul class="repotags">
-                    <li data-ng-repeat="tag in repo.tags" data-ng-click="vm.filterOn(tag)">
-                        {{tag}}
-                    </li>
+    <table class="repos">
+        <tr class="header">
+            <th data-ng-click="vm.sort.repos.field = 'name'; vm.sort.repos.descend = !vm.sort.repos.descend">
+                {{vm.sort.repos.descend ? "&xdtri;" : "&xutri;"}}
+            </th>
+            <th data-ng-repeat="(field, label) in {
+                language: 'Language',
+                created_at: 'Create',
+                updated_at: 'Update',
+                stargazers_count: '\&bigstar;',
+                open_issues_count: '!!',
+                fork: '\&disin;'
+            }" data-ng-click="vm.sort.repos.field = field; vm.sort.repos.descend = !vm.sort.repos.descend">{{label}}</th>
+        </tr>
+        <tr class="header" data-ng-repeat-start="repo in vm.data.repos | orderBy:vm.sort.repos.field : vm.sort.repos.descend | filter:vm.filterer as filtered">
+            <th colspan="7" class="repo">
+                {{$index + 1}}.
+                <a data-ng-href="{{repo.html_url}}">{{repo.name}}</a>
+                <a data-ng-if="repo.homepage" class="homepage" data-ng-href="{{repo.homepage}}">{{repo.homepage}}</a>
+            </th>
+        </tr>
+        <tr>
+            <td>{{}}</td>
+            <td>{{repo.language || "Other"}}</td>
+            <td>{{repo.created_at | date:"MM/dd/yy"}}</td>
+            <td>{{repo.updated_at | date:"MM/dd/yy"}}</td>
+            <td>{{repo.stargazers_count}}</td>
+            <td>{{repo.open_issues_count}}</td>
+            <td><span data-ng-if="repo.fork">&disin;</span></td>
+        </tr>
+        <tr data-ng-repeat-end>
+            <td colspan="7">
+                <p>{{repo.description_sans_tags}}</p>
+                <ul class="tags">
+                    <li data-ng-repeat="tag in repo.tags" data-ng-click="vm.filterOn(tag)">{{tag}}</li>
                 </ul>
-            </li>
-        </ol>
-    </main>
+            </td>
+        </tr>
+    </table>
 </body>
 </html>
