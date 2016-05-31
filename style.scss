@@ -1,0 +1,189 @@
+$desktop: "min-width:421px";
+$mobile: "max-width:420px";
+
+*{
+  margin:0;
+  border:0;
+  padding:0;
+  font-size:inherit;
+  font-family:inherit;
+  font-weight:inherit;
+  font-style:inherit;
+  line-height:inherit;
+  letter-spacing:inherit;
+  border-collapse:collapse;
+  text-decoration:inherit;
+  text-transform:inherit;
+  text-align:inherit;
+  color:inherit;
+  list-style:none;
+  background-color:transparent;
+}
+*:focus{
+  outline:none;
+}
+
+html{
+  font-size:14px;
+  font-family:"Helvetica Neue", Helvetica, sans-serif;
+  background-color:#eee;
+}
+body{
+  color:#444;
+}
+
+
+.asc:after{
+  content:"(a-z)";
+}
+.desc:after{
+  content:"(z-a)";
+}
+
+input{
+  &[type=radio],
+  &[type=checkbox]{
+    display:none;
+  }
+  &[type=text]{
+    display:block;
+    width:100%;
+    box-sizing:border-box;
+    border-right-width:3px;
+    border-style:solid;
+    border-color:rgba(0,0,0,0);
+    animation: flash 1s infinite steps(2,end);
+    -webkit-animation: flash 1s infinite steps(2,end);
+  }
+}
+@keyframes flash{
+  from{border-color:rgba(0,0,0,0);}
+  to  {border-color:rgba(0,0,0,1);}
+}
+@-webkit-keyframes flash{
+  from{border-color:rgba(0,0,0,0);}
+  to  {border-color:rgba(0,0,0,1);}
+}
+
+@mixin button{
+  display:block;
+  width:100%;
+  background-color:#9cf;
+  color:#369;
+  cursor:pointer;
+  &:hover{
+    background-color:#8be;
+  }
+}
+nav{
+  background-color:#fff;
+  font-size:10px;
+  line-height:28px;
+  text-transform:uppercase;
+  font-weight:bold;
+  letter-spacing:1px;
+  text-align:center;
+  overflow-y:scroll;
+  direction:rtl;
+  
+  & > *{
+    direction:ltr;
+  }
+  button{
+    @include button;
+  }
+  fieldset > *{
+    @include button;
+    display:inline-block;
+    width:50%;
+    float:left;
+    &.asc,
+    &.desc{
+      background-color:#69c;
+      color:#bdf;
+    }
+  }
+  .taglist li{
+    text-align:left;
+    border-bottom:1px solid #eee;
+    padding:0 5px;
+    cursor:pointer;
+    &:hover{
+      background-color:#eef;
+    }
+    span{
+      float:right;
+    }
+  }
+}
+
+main{
+  color:#999;
+  line-height:28px;
+  
+  h2 .name{
+    font-weight:bold;
+    color:#369;
+  }
+  .homepage{
+    text-decoration:underline;
+  }
+  .stats{
+    float:right;
+  }
+  .description{
+    line-height:18px;
+  }
+  .digit{
+    display:inline-block;
+    min-width:20px;
+    text-align:center;
+  }
+  
+  .repotags{
+    li{
+      display:inline-block;
+      padding-right:20px;
+      cursor:pointer;
+      
+      &:hover{
+        color:#69c;
+      }
+    }
+  }
+}
+
+
+ol li.repo{
+  list-style-type:decimal;
+  list-style-position:inside;
+}
+li.repo{
+  border-bottom:1px dashed #ccc;
+  padding:14px 0;
+}
+
+@media (#{$desktop}){
+  nav{
+    position:fixed;
+    top:0;
+    left:0;
+    width:180px;
+    height:100vh;
+  }
+  main{
+    min-width:480px;
+    border-left:180px solid #fff;
+    box-sizing:border-box;
+    padding:0 20px;
+  }
+}
+
+@media (#{$mobile}){
+  nav{
+    overflow-y:visible;
+  }
+  main{
+    padding:0 5px;
+  }
+}

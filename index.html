@@ -17,10 +17,11 @@
         <span data-ng-transclude></span> {{sortDir()}}
       </span>
     </script>
+    
     <nav>
-      <a class="button important" target="_blank" href="https://github.com/repotagger/repotagger.github.io#repotagger" title="This aims to be a simpler way of navigating all of an organization's repos. Click for more info.">About RepoTagger</a>
-      <input id="name" class="flash" type="text" placeholder="GitHub org/user name" data-ng-model="vm.name" data-ng-keypress="vm.submitForm($event)" title="Enter the name of a Github organization or user" />
-      <button data-ng-click="vm.startAPIQuery()" data-ng-switch="vm.data.status" title="Click to submit!">
+      <button><a href="https://github.com/repotagger/repotagger.github.io#repotagger">About RepoTagger</a></button>
+      <input id="name" type="text" placeholder="GitHub org/user name" data-ng-model="vm.name" data-ng-keypress="vm.submitForm($event)" title="Enter the name of a Github organization or user" />
+      <button data-ng-click="vm.startAPIQuery()" data-ng-switch="vm.data.status">
         <span data-ng-switch-when="0">Load their repos!</span>
         <span data-ng-switch-when="100">Loading page {{vm.data.page}}{{vm.data.last}}...</span>
         <span data-ng-switch-when="200">Reload repos</span>
@@ -66,8 +67,8 @@
               <span class="digit">{{repo.open_issues_count}}</span>
             </p>
             <h2>
-              <a class="name" data-ng-href="{{repo.html_url}}" target="_blank"><span data-ng-if="repo.fork">&disin; </span>{{repo.name}}</a>
-              <a class="homepage" data-ng-href="{{repo.homepage}}" target="_blank">{{repo.homepage}}</a>
+              <a class="name" data-ng-href="{{repo.html_url}}"><span data-ng-if="repo.fork">&disin; </span>{{repo.name}}</a>
+              <a class="homepage" data-ng-href="{{repo.homepage}}">{{repo.homepage}}</a>
             </h2>
           </header>
           <p class="description">{{repo.description_sans_tags}}</p>
