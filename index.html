@@ -42,7 +42,7 @@
     <table class="repos">
         <tr class="header">
             <th data-ng-click="vm.sort.repos.field = 'name'; vm.sort.repos.descend = !vm.sort.repos.descend">
-                {{vm.sort.repos.descend ? "&xdtri;" : "&xutri;"}}
+                {{vm.sort.repos.descend ? "Z-A" : "A-Z"}}
             </th>
             <th data-ng-repeat="(field, label) in {
                 language: 'Language',
