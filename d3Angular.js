@@ -32,23 +32,13 @@
     };
   }
 
-  CirclesDirective.$inject = ['d3Service']
-  function CirclesDirective(d3Service) {
+  CirclesDirective.$inject = ['$location', 'd3Service']
+  function CirclesDirective($location, d3Service) {
     return {
       scope: {
         data: '='
       },
       link: function(scope, element, attrs) {
-        // window.onresize = function() {
-        //   return scope.$apply();
-        // };
-        // scope.$watch(function(){
-        //     return angular.element(window)[0].innerWidth;
-        //   }, function(){
-        //     return scope.render(scope.data);
-        //   }
-        // );
-
         // watch for data changes and re-render
         scope.$watch('data', function(newVals, oldVals) {
           return scope.render(newVals);
@@ -60,6 +50,8 @@
           d3Service.d3().then(function(d3) {
             var mainWidth = angular.element(document.querySelector('main').clientWidth);
             var diameter = mainWidth[0];
+
+            console.log(scope.data);
 
             d3.selectAll(".bubble").remove();
 
@@ -73,6 +65,10 @@
             .attr("width", diameter)
             .attr("height", diameter)
             .attr("class", "bubble")
+
+            var tooltip = d3.select("body")
+            .append("div")
+            .attr('class', 'd3-detail')
 
             data = scope.data.tags.map(function(d){ d.value = d["count"]; return d; });
 
@@ -94,6 +90,9 @@
             })
             .on("mouseout", function(){
               d3.select(this).style("fill", "#9cf")
+            })
+            .on("click", function(d){
+              scope.$apply($location.path(/tab/).search("tag", d.name))
             })
 
             bubbles.append("text")

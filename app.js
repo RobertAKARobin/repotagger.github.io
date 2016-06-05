@@ -12,7 +12,7 @@
     .controller("MainController", MainController);
 
     function AppConfig($locationProvider, $stateProvider){
-        // $locationProvider.html5Mode(true);
+        $locationProvider.html5Mode(true);
 
         $stateProvider
         .state("table", {
@@ -126,7 +126,7 @@
             if($event.keyCode == 13) vm.startAPIQuery();
         }
         vm.filterOn = function(tag){
-            $location.search("tag", (tag ? tag : null));
+            $location.path(/tab/).search("tag", (tag ? tag : null));
         };
         vm.filterer = function(repo){
             var filter = $location.search().tag;
