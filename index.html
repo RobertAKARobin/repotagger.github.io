@@ -8,11 +8,12 @@
     <link rel="icon" href="favicon.ico">
     <base href="/" />
     <link rel="stylesheet" href="style.css" />
-    <script src="https://code.angularjs.org/1.4.8/angular.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.6/angular.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-router/0.3.1/angular-ui-router.min.js"></script>
     <script src="app.js"></script>
 </head>
 <body data-ng-app="repotagger" data-ng-controller="MainController as vm" data-ng-init="vm.init()">
-    
+
     <nav>
         <h1><a class="button" href="https://github.com/repotagger/repotagger.github.io#repotagger">About RepoTagger</a></h1>
         <input id="name" type="text" placeholder="GitHub org/user name" data-ng-model="vm.name" data-ng-keypress="vm.submitForm($event)" title="Enter the name of a Github organization or user" />
@@ -28,6 +29,8 @@
                 name: 'Name',
                 count: 'Count'
             }" data-ng-click="vm.sort.tags.field = field; vm.sort.tags.descend = !vm.sort.tags.descend">{{label}}</button>
+            <button data-ui-sref="table">Table</button>
+            <button data-ui-sref="visual">Visual</button>
         </fieldset>
         <ul class="taglist">
             <li data-ng-click="vm.filterOn(null)">&bull; All <span>{{vm.data.repos.length}}</span></li>
@@ -38,45 +41,8 @@
             </li>
         </ul>
     </nav>
-    
-    <table class="repos">
-        <tr class="header">
-            <th data-ng-click="vm.sort.repos.field = 'name'; vm.sort.repos.descend = !vm.sort.repos.descend">
-                {{vm.sort.repos.descend ? "Z-A" : "A-Z"}}
-            </th>
-            <th data-ng-repeat="(field, label) in {
-                language: 'Language',
-                created_at: 'Created',
-                updated_at: 'Updated',
-                stargazers_count: '\&bigstar;',
-                open_issues_count: '!!',
-                fork: '\&disin;'
-            }" data-ng-click="vm.sort.repos.field = field; vm.sort.repos.descend = !vm.sort.repos.descend">{{label}}</th>
-        </tr>
-        <tr class="header" data-ng-repeat-start="repo in vm.data.repos | orderBy:vm.sort.repos.field : vm.sort.repos.descend | filter:vm.filterer as filtered">
-            <th colspan="7" class="repo">
-                {{$index + 1}}.
-                <a data-ng-href="{{repo.html_url}}">{{repo.name}}</a>
-                <a data-ng-if="repo.homepage" class="homepage" data-ng-href="{{repo.homepage}}">{{repo.homepage}}</a>
-            </th>
-        </tr>
-        <tr>
-            <td>{{}}</td>
-            <td>{{repo.language || "Other"}}</td>
-            <td>{{repo.created_at | date:"MM/dd/yy"}}</td>
-            <td>{{repo.updated_at | date:"MM/dd/yy"}}</td>
-            <td>{{repo.stargazers_count}}</td>
-            <td>{{repo.open_issues_count}}</td>
-            <td><span data-ng-if="repo.fork">&disin;</span></td>
-        </tr>
-        <tr data-ng-repeat-end>
-            <td colspan="7">
-                <p>{{repo.description_sans_tags}}</p>
-                <ul class="tags">
-                    <li data-ng-repeat="tag in repo.tags" data-ng-click="vm.filterOn(tag)">{{tag}}</li>
-                </ul>
-            </td>
-        </tr>
-    </table>
+
+    <main data-ui-view></main>
+
 </body>
 </html>
