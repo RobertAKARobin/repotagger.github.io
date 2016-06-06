@@ -93,71 +93,58 @@
     MainController.$inject = [ "$location", "APIQuery" ];
     function MainController($location, APIQuery){
         var vm = this;
-        vm.status         = 0;
-        vm.name           = $location.search().name;
-        vm.tags           = $location.search().tag;
-        vm.sort           = {
-            tags: {
-                field: "name",
-                descend: true
-            },
-            repos: {
-                field: "name",
-                descend: false
-            }
-        };
         
         vm.startAPIQuery = function(){
             $location.search("name", vm.name.toLowerCase());
             vm.data = new APIQuery(vm.name);
-        };
+        }
         vm.submitForm = function($event){
             if($event.keyCode == 13) vm.startAPIQuery();
         }
-        vm.filterOn = function(newTag){
-            var oldTag = $location.search().tag
-            if (!newTag || (oldTag == newTag)) {
-                vm.tags = null;
-            }
-            else if (oldTag && Array.isArray(oldTag)) {
-                if (oldTag.indexOf(newTag) > -1) {
-                    oldTag.splice(oldTag.indexOf(newTag), 1)
+        vm.filterOn = function(tag){
+            var maxTags   = 3;
+            var tagIndex  = (vm.tags || []).indexOf(tag);
+            var specials  = ["all", "tagged", "untagged"];
+            if(specials.includes(tag)) vm.tags = [tag];
+            else{
+                if(specials.includes(vm.tags[0])) vm.tags = [];
+                if(tagIndex > -1) vm.tags.splice(tagIndex, 1);
+                else{
+                    if(vm.tags.length == maxTags) vm.tags.shift();
+                    vm.tags.push(tag);
                 }
-                else if (oldTag.length < 3) {
-                    oldTag.push(newTag)
-                } else {
-                    oldTag.shift()
-                    oldTag.push(newTag)
-                }
-                vm.tags = oldTag;
-            } else if (oldTag) {
-                var tags = []
-                tags.push(oldTag)
-                tags.push(newTag)
-                vm.tags = tags;
-            } else {
-                vm.tags = newTag
             }
+            if(vm.tags.length === 0) vm.tags = ["all"];
             $location.search("tag", vm.tags);
-        };
+        }
         vm.filterer = function(repo){
-            var filter = $location.search().tag;
-            if (Array.isArray(filter)) {
-                return filter.some(check)
-            } else {
-                return check(filter)
-            }
-            function check(filter, i, arr) {
-                if(repo.tags && repo.tags.indexOf(filter) > -1) return true;
-                else if(filter === "tagged" && repo.tags && repo.tags.length > 0) return true;
-                else if(filter === "untagged" && (!repo.tags || repo.tags.length < 1)) return true;
-                else if(!filter || filter === "all") return true;
-                else return false;
-            }
+            if(repo.tags && intersection_of(repo.tags, vm.tags).length > 0) return true;
+            else if(vm.tags[0] === "all") return true;
+            else if(vm.tags[0] === "tagged" && repo.tags && repo.tags.length > 0) return true;
+            else if(vm.tags[0] === "untagged" && (!repo.tags || repo.tags.length < 1)) return true;
+            else return false;
         }
         vm.init = function(){
-            if(!vm.name) vm.name = "repotagger";
+            vm.status = 0;
+            vm.name   = ($location.search().name || "repotagger");
+            vm.sort   = {
+                tags: {
+                    field: "name",
+                    descend: false
+                },
+                repos: {
+                    field: "name",
+                    descend: false
+                }
+            }
             vm.startAPIQuery();
+            vm.filterOn($location.search().tag || "all");
         }
+    }
+    
+    function intersection_of(array1, array2){
+        return array1.filter(function(item){
+            return (array2.indexOf(item) > -1);
+        });
     }
 }());
