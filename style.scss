@@ -86,7 +86,7 @@ nav{
     text-align:center;
     overflow-y:scroll;
     direction:rtl;
-    
+
     & > *{
         direction:ltr;
     }
@@ -126,7 +126,7 @@ nav{
     border-collapse:separate;
     width:100%;
     text-align:left;
-    
+
     th{
         font-weight:bold;
         color:#369;
@@ -163,12 +163,16 @@ nav{
             font-weight:bold;
             text-transform:uppercase;
             letter-spacing:1px;
-            
+
             &:hover{
                 color:#69c;
             }
         }
     }
+}
+
+circle{
+  cursor: pointer;
 }
 
 @media (#{$desktop}){

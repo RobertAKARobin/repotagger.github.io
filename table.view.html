@@ -1,0 +1,39 @@
+<table class="repos">
+    <tr class="header">
+        <th data-ng-click="vm.sort.repos.field = 'name'; vm.sort.repos.descend = !vm.sort.repos.descend">
+            {{vm.sort.repos.descend ? "Z-A" : "A-Z"}}
+        </th>
+        <th data-ng-repeat="(field, label) in {
+            language: 'Language',
+            created_at: 'Created',
+            updated_at: 'Updated',
+            stargazers_count: '\&bigstar;',
+            open_issues_count: '!!',
+            fork: '\&disin;'
+        }" data-ng-click="vm.sort.repos.field = field; vm.sort.repos.descend = !vm.sort.repos.descend">{{label}}</th>
+    </tr>
+    <tr class="header" data-ng-repeat-start="repo in vm.data.repos | orderBy:vm.sort.repos.field : vm.sort.repos.descend | filter:vm.filterer as filtered">
+        <th colspan="7" class="repo">
+            {{$index + 1}}.
+            <a data-ng-href="{{repo.html_url}}">{{repo.name}}</a>
+            <a data-ng-if="repo.homepage" class="homepage" data-ng-href="{{repo.homepage}}">{{repo.homepage}}</a>
+        </th>
+    </tr>
+    <tr>
+        <td>{{}}</td>
+        <td>{{repo.language || "Other"}}</td>
+        <td>{{repo.created_at | date:"MM/dd/yy"}}</td>
+        <td>{{repo.updated_at | date:"MM/dd/yy"}}</td>
+        <td>{{repo.stargazers_count}}</td>
+        <td>{{repo.open_issues_count}}</td>
+        <td><span data-ng-if="repo.fork">&disin;</span></td>
+    </tr>
+    <tr data-ng-repeat-end>
+        <td colspan="7">
+            <p>{{repo.description_sans_tags}}</p>
+            <ul class="tags">
+                <li data-ng-repeat="tag in repo.tags" data-ng-click="vm.filterOn(tag)">{{tag}}</li>
+            </ul>
+        </td>
+    </tr>
+</table>

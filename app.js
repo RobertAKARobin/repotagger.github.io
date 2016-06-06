@@ -2,17 +2,29 @@
 
 (function(){
     var ng = angular;
-    
+
     ng
-    .module("repotagger", [ ])
-    .config(["$locationProvider", AppConfig])
+    .module("repotagger", [
+      "ui.router"
+    ])
+    .config(AppConfig)
     .factory("APIQuery", APIQuery)
     .controller("MainController", MainController);
-    
-    function AppConfig($locationProvider){
+
+    function AppConfig($locationProvider, $stateProvider){
         $locationProvider.html5Mode(true);
+
+        $stateProvider
+        .state("table", {
+          url: "/tab/:query",
+          templateUrl: "table.view.html"
+        })
+        .state("visual", {
+          url: "/viz/:query",
+          templateUrl: "visual.view.html"
+        })
     }
-    
+
     APIQuery.$inject = [ "$http" ];
     function APIQuery($http){
         var q;
@@ -60,7 +72,7 @@
             }
             handle(response.data, headers);
         }
-        
+
         function handle(data, headers){
             var links = {}, string = (headers.link || headers.Link);
             if(string) string.split(",").forEach(function(line){
@@ -89,7 +101,7 @@
             q.repos = q.repos.concat(data);
         }
     }
-    
+
     MainController.$inject = [ "$location", "APIQuery" ];
     function MainController($location, APIQuery){
         var vm = this;
@@ -105,7 +117,7 @@
                 descend: false
             }
         };
-        
+
         vm.startAPIQuery = function(){
             $location.search("name", vm.name.toLowerCase());
             vm.data = new APIQuery(vm.name);
@@ -114,7 +126,7 @@
             if($event.keyCode == 13) vm.startAPIQuery();
         }
         vm.filterOn = function(tag){
-            $location.search("tag", (tag ? tag : null));
+            $location.path(/tab/).search("tag", (tag ? tag : null));
         };
         vm.filterer = function(repo){
             var filter = $location.search().tag;
