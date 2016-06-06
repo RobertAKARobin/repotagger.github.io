@@ -35,7 +35,7 @@
             <li data-ng-click="vm.filterOn('untagged')">&bull; Untagged <span>{{vm.data.untagged}}</span></li>
             <li data-ng-click="vm.filterOn(tag.name)"
                 data-ng-repeat="tag in vm.data.tags | orderBy:vm.sort.tags.field : vm.sort.tags.descend"
-                data-ng-class="{selected: (vm.tags.indexOf(tag.name) > -1)}">
+                data-ng-class="{selected: ([].concat(vm.tags).indexOf(tag.name) > -1)}">
                 {{tag.name}} <span>{{tag.count}}</span>
             </li>
         </ul>
