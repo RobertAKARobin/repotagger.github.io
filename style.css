@@ -49,6 +49,7 @@ p {
 input[type=radio], input[type=checkbox] {
   display: none;
 }
+
 input[type=text] {
   display: block;
   width: 100%;
@@ -67,6 +68,7 @@ input[type=text] {
     border-color: black;
   }
 }
+
 nav {
   background-color: #fff;
   font-size: 10px;
@@ -78,9 +80,11 @@ nav {
   overflow-y: scroll;
   direction: rtl;
 }
+
 nav > * {
   direction: ltr;
 }
+
 nav button,
 nav .button {
   display: block;
@@ -89,10 +93,12 @@ nav .button {
   color: #369;
   cursor: pointer;
 }
+
 nav button:hover,
 nav .button:hover {
   background-color: #8be;
 }
+
 nav fieldset > * {
   display: block;
   width: 100%;
@@ -103,25 +109,34 @@ nav fieldset > * {
   width: 50%;
   float: left;
 }
+
 nav fieldset > *:hover {
   background-color: #8be;
 }
+
 nav fieldset > *.asc, nav fieldset > *.desc {
   background-color: #69c;
   color: #bdf;
 }
+
 nav .taglist li {
   text-align: left;
   border-bottom: 1px solid #eee;
   padding: 0 5px;
   cursor: pointer;
 }
+
 nav .taglist li:hover {
   background-color: #eef;
 }
+
 nav .taglist li span {
   float: right;
 }
+nav .selected {
+  background-color: #ddebf9;
+}
+
 nav .selected {
   background-color: #ddebf9;
 }
@@ -133,19 +148,23 @@ nav .selected {
   width: 100%;
   text-align: left;
 }
+
 .repos th {
   font-weight: bold;
   color: #369;
   cursor: pointer;
 }
+
 .repos th:hover {
   text-decoration: underline;
 }
+
 .repos .header > * {
   padding-top: 10px;
   padding-bottom: 10px;
   white-space: nowrap;
 }
+
 .repos .homepage {
   color: #666;
   text-decoration: underline;
@@ -153,14 +172,17 @@ nav .selected {
   word-break: break-all;
   white-space: normal;
 }
+
 .repos .repo {
   border-top: 1px dashed #ccc;
 }
+
 .repos .tags {
   font-size: 0;
   line-height: 0;
   margin: 10px 0;
 }
+
 .repos .tags li {
   display: inline-block;
   padding-right: 20px;
@@ -171,6 +193,7 @@ nav .selected {
   text-transform: uppercase;
   letter-spacing: 1px;
 }
+
 .repos .tags li:hover {
   color: #69c;
 }
@@ -183,7 +206,6 @@ nav .selected {
     width: 180px;
     height: 100vh;
   }
-
   body {
     min-width: 480px;
     border-left: 180px solid #fff;
@@ -191,15 +213,14 @@ nav .selected {
     padding: 0 10px;
   }
 }
+
 @media (max-width: 630px) {
   nav {
     overflow-y: visible;
   }
-
   [colspan] {
     padding: 0 5px;
   }
-
   .homepage {
     float: right;
   }

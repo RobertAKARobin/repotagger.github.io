@@ -2,17 +2,17 @@
 
 (function(){
     var ng = angular;
-    
+
     ng
     .module("repotagger", [ ])
     .config(["$locationProvider", AppConfig])
     .factory("APIQuery", APIQuery)
     .controller("MainController", MainController);
-    
+
     function AppConfig($locationProvider){
-        $locationProvider.html5Mode(true);
+        // $locationProvider.html5Mode(true);
     }
-    
+
     APIQuery.$inject = [ "$http" ];
     function APIQuery($http){
         var q;
@@ -60,7 +60,7 @@
             }
             handle(response.data, headers);
         }
-        
+
         function handle(data, headers){
             var links = {}, string = (headers.link || headers.Link);
             if(string) string.split(",").forEach(function(line){
@@ -89,7 +89,7 @@
             q.repos = q.repos.concat(data);
         }
     }
-    
+
     MainController.$inject = [ "$location", "APIQuery" ];
     function MainController($location, APIQuery){
         var vm = this;
@@ -106,7 +106,7 @@
                 descend: false
             }
         };
-        
+
         vm.startAPIQuery = function(){
             $location.search("name", vm.name.toLowerCase());
             vm.data = new APIQuery(vm.name);
