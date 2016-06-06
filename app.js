@@ -116,8 +116,7 @@
         }
         vm.filterOn = function(newTag){
             var oldTag = $location.search().tag
-
-            if (!newTag) {
+            if (!newTag || (oldTag == newTag)) {
                 vm.tags = null;
             }
             else if (oldTag && Array.isArray(oldTag)) {
