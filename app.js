@@ -95,6 +95,7 @@
         var vm = this;
         vm.status         = 0;
         vm.name           = $location.search().name;
+        vm.tags           = $location.search().tag;
         vm.sort           = {
             tags: {
                 field: "name",
@@ -113,16 +114,46 @@
         vm.submitForm = function($event){
             if($event.keyCode == 13) vm.startAPIQuery();
         }
-        vm.filterOn = function(tag){
-            $location.search("tag", (tag ? tag : null));
+        vm.filterOn = function(newTag){
+            var oldTag = $location.search().tag
+            if (!newTag || (oldTag == newTag)) {
+                vm.tags = null;
+            }
+            else if (oldTag && Array.isArray(oldTag)) {
+                if (oldTag.indexOf(newTag) > -1) {
+                    oldTag.splice(oldTag.indexOf(newTag), 1)
+                }
+                else if (oldTag.length < 3) {
+                    oldTag.push(newTag)
+                } else {
+                    oldTag.shift()
+                    oldTag.push(newTag)
+                }
+                vm.tags = oldTag;
+            } else if (oldTag) {
+                var tags = []
+                tags.push(oldTag)
+                tags.push(newTag)
+                vm.tags = tags;
+            } else {
+                vm.tags = newTag
+            }
+            $location.search("tag", vm.tags);
         };
         vm.filterer = function(repo){
             var filter = $location.search().tag;
-            if(repo.tags && repo.tags.indexOf(filter) > -1) return true;
-            else if(filter === "tagged" && repo.tags && repo.tags.length > 0) return true;
-            else if(filter === "untagged" && (!repo.tags || repo.tags.length < 1)) return true;
-            else if(!filter || filter === "all") return true;
-            else return false;
+            if (Array.isArray(filter)) {
+                return filter.some(check)
+            } else {
+                return check(filter)
+            }
+            function check(filter, i, arr) {
+                if(repo.tags && repo.tags.indexOf(filter) > -1) return true;
+                else if(filter === "tagged" && repo.tags && repo.tags.length > 0) return true;
+                else if(filter === "untagged" && (!repo.tags || repo.tags.length < 1)) return true;
+                else if(!filter || filter === "all") return true;
+                else return false;
+            }
         }
         vm.init = function(){
             if(!vm.name) vm.name = "repotagger";

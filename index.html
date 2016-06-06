@@ -33,7 +33,9 @@
             <li data-ng-click="vm.filterOn(null)">&bull; All <span>{{vm.data.repos.length}}</span></li>
             <li data-ng-click="vm.filterOn('tagged')">&bull; Tagged <span>{{vm.data.repos.length - vm.data.untagged}}</span></li>
             <li data-ng-click="vm.filterOn('untagged')">&bull; Untagged <span>{{vm.data.untagged}}</span></li>
-            <li data-ng-repeat="tag in vm.data.tags | orderBy:vm.sort.tags.field : vm.sort.tags.descend" data-ng-click="vm.filterOn(tag.name)">
+            <li data-ng-click="vm.filterOn(tag.name)"
+                data-ng-repeat="tag in vm.data.tags | orderBy:vm.sort.tags.field : vm.sort.tags.descend"
+                data-ng-class="{selected: (vm.tags.indexOf(tag.name) > -1)}">
                 {{tag.name}} <span>{{tag.count}}</span>
             </li>
         </ul>

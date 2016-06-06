@@ -122,6 +122,9 @@ nav .taglist li:hover {
 nav .taglist li span {
   float: right;
 }
+nav .selected {
+  background-color: #ddebf9;
+}
 
 .repos {
   color: #999;
