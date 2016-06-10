@@ -12,7 +12,7 @@
     <script src="app.js"></script>
 </head>
 <body data-ng-app="repotagger" data-ng-controller="MainController as vm" data-ng-init="vm.init()">
-    
+
     <nav>
         <h1><a class="button" href="https://github.com/repotagger/repotagger.github.io#repotagger">About RepoTagger</a></h1>
         <input id="name" type="text" placeholder="GitHub org/user name" data-ng-model="vm.name" data-ng-keypress="vm.submitForm($event)" title="Enter the name of a Github organization or user" />
@@ -40,19 +40,19 @@
             </li>
         </ul>
     </nav>
-    
+
     <table class="repos">
         <tr class="header">
             <th data-ng-click="vm.sort.repos.field = 'name'; vm.sort.repos.descend = !vm.sort.repos.descend">
                 {{vm.sort.repos.descend ? "Z-A" : "A-Z"}}
             </th>
             <th data-ng-repeat="(field, label) in {
-                language: 'Language',
-                created_at: 'Created',
-                updated_at: 'Updated',
-                stargazers_count: '\&bigstar;',
-                open_issues_count: '!!',
-                fork: '\&disin;'
+                language:           'Language',
+                created_at:         'Created',
+                updated_at:         'Updated',
+                stargazers_count:   '\&bigstar;',
+                open_issues_count:  '!!',
+                fork:               '\&disin;'
             }" data-ng-click="vm.sort.repos.field = field; vm.sort.repos.descend = !vm.sort.repos.descend">{{label}}</th>
         </tr>
         <tr class="header" data-ng-repeat-start="repo in vm.data.repos | orderBy:vm.sort.repos.field : vm.sort.repos.descend | filter:vm.filterer as filtered">
